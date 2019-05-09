@@ -1,19 +1,32 @@
-﻿using Forum.Web.Entities;
+﻿using System;
+using Forum.Web.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Forum.Web.Data
+namespace Forum.Web
 {
-    public class ForumContext : DbContext
+    public partial class ForumContext : DbContext
     {
-        public ForumContext(DbContextOptions<ForumContext> options) : base(options) {}
+        public ForumContext()
+        {
+        }
+
+        public ForumContext(DbContextOptions<ForumContext> options)
+            : base(options)
+        {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=Forum;Trusted_Connection=True;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
         }
 
         public DbSet<User> Users { get; set; }
