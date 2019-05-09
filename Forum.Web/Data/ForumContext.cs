@@ -7,26 +7,14 @@ namespace Forum.Web
 {
     public partial class ForumContext : DbContext
     {
-        public ForumContext()
-        {
-        }
-
         public ForumContext(DbContextOptions<ForumContext> options)
             : base(options)
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=Forum;Trusted_Connection=True;");
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<User> Users { get; set; }
