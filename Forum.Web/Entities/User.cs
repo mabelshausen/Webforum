@@ -12,6 +12,7 @@ namespace Forum.Web.Entities
 
         [Required]
         [MaxLength(50)]
+        [MinLength(6)]
         public string Username { get; set; }
 
         [Required]
