@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Forum.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forum.Web.Controllers
@@ -10,7 +11,8 @@ namespace Forum.Web.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var model = new CategoriesIndexVm();
+            return View(model);
         }
     }
 }
