@@ -14,14 +14,14 @@ namespace Forum.Web.Models
         [RegularExpression(@"^[\w\d.]{5,}$", ErrorMessage = "Username cannot contain spaces or special characters. ")]
         public string Username { get; set; }
 
-        [Display(Name = "Please enter your password. ")]
         [DataType(DataType.Password)]
+        [Display(Name = "Please enter your password. ")]
         [Required(ErrorMessage = "A password is required. ")]
-        [MinLength(6, ErrorMessage = "Your password must be at least {2} characters long. ")]
+        [MinLength(6, ErrorMessage = "Your password must be at least {1} characters long. ")]
         public string Password { get; set; }
 
-        [Display(Name = "Please enter your password again. ")]
         [DataType(DataType.Password)]
+        [Display(Name = "Please enter your password again. ")]
         [Compare(nameof(Password), ErrorMessage = "The passwords do not match. ")]
         public string RepeatPassword { get; set; }
 

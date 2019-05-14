@@ -11,12 +11,13 @@ namespace Forum.Web.Controllers
     {
         public IActionResult Login(LoginViewModel loginViewModel)
         {
-            return View();
+            return View(loginViewModel);
         }
 
+        
         public IActionResult Register(RegisterViewModel registerViewModel)
         {
-            return View();
+            return View(registerViewModel);
         }
     }
 }

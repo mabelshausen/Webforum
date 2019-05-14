@@ -1,4 +1,4 @@
-﻿
+﻿@model Forum.Web.Models.RegisterViewModel
 @{
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,6 +10,24 @@
 
     <div>
         <label asp-for="Username"></label>
+        <input asp-for="Username" />
+        <span asp-validation-for="Username"></span>
     </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <label asp-for="RepeatPassword"></label>
+        <input asp-for="RepeatPassword" />
+        <span asp-validation-for="RepeatPassword"></span>
+    </div>
+    <div>
+        <label asp-for="TermsOfService"></label>
+        <input asp-for="TermsOfService" />
+        <span asp-validation-for="TermsOfService"></span>
+    </div>
+    <input type="submit" />
 </form>
 
