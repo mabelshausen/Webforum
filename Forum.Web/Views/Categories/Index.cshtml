@@ -8,6 +8,6 @@
 <ul>
     @foreach (var cat in Model.CategoriesBytheme)
     {
-        <li>@cat.Title</li>
+        <li><a href="@cat.Theme.Title/@cat.Title">@cat.Title</a></li>
     }
 </ul>

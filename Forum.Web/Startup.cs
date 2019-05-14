@@ -63,8 +63,12 @@ namespace Forum.Web
                     template: "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "categoriesByTheme",
-                    template: "{theme}/Categories",
+                    template: "{theme}",
                     defaults: new { controller = "Categories", action = "Index" });
+                routes.MapRoute(
+                    name: "default",
+                    template: "{theme}/{category}",
+                    defaults: new { controller = "Posts", action = "Index" });
             });
         }
     }

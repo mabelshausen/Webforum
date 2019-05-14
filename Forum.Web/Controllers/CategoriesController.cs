@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Forum.Web.Entities;
 using Forum.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Forum.Web.Controllers
 {
@@ -24,6 +25,7 @@ namespace Forum.Web.Controllers
             model.Categories = fc.Categories;
 
             model.CategoriesBytheme = fc.Categories
+                .Include(c => c.Theme)
                 .Where(c => c.Theme.Title.ToLower() == theme.ToLower())
                 .ToList();
 
