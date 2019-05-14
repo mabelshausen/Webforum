@@ -9,9 +9,19 @@ namespace Forum.Web.Controllers
 {
     public class CategoriesController : Controller
     {
+        private ForumContext fc;
+
+        public CategoriesController (ForumContext context)
+        {
+            fc = context;
+        }
+
         public IActionResult Index()
         {
             var model = new CategoriesIndexVm();
+
+            model.Categories = fc.Categories;
+
             return View(model);
         }
     }
