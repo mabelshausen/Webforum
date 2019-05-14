@@ -22,11 +22,12 @@ namespace Forum.Web.Controllers
         {
             var model = new CategoriesIndexVm();
 
-            model.Categories = fc.Categories;
+            model.Theme = fc.Themes
+                .Where(t => t.Title.ToLower() == theme.ToLower())
+                .First();
 
             model.CategoriesBytheme = fc.Categories
-                .Include(c => c.Theme)
-                .Where(c => c.Theme.Title.ToLower() == theme.ToLower())
+                .Where(c => c.Theme == model.Theme)
                 .ToList();
 
             return View(model);

@@ -8,7 +8,7 @@ namespace Forum.Web.ViewModels
 {
     public class CategoriesIndexVm
     {
-        public IEnumerable<Category> Categories { get; set; }
+        public Theme Theme { get; set; }
 
         public IEnumerable<Category> CategoriesBytheme { get; set; }
     }
