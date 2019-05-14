@@ -65,7 +65,7 @@ namespace Forum.Web.Data
                 {
                     Id = Guid.Parse("22222222-2222-2222-2222-222222222222"),
                     UserId = Guid.Parse("44444444-4444-4444-4444-444444444444"),
-                    CategoryId = Guid.Parse("22222222-2222-2222-2222-222222222222"),
+                    CategoryId = Guid.Parse("33333333-3333-3333-3333-333333333333"),
                     Title = "Tips for a beginner",
                     Content = "I just started the game and I'm completely lost. Does anyone have any tips for me?",
                     DateTime = DateTime.ParseExact("11/12/2011 17:03", "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)
