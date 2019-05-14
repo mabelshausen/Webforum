@@ -1,4 +1,5 @@
 ﻿using System;
+using Forum.Web.Data;
 using Forum.Web.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -14,6 +15,8 @@ namespace Forum.Web
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            DataSeeder.Seed(modelBuilder);
+
             base.OnModelCreating(modelBuilder);
         }
 
