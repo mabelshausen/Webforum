@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Forum.Web.Entities
 {
-    public class User
+    public class Comment
     {
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        [MinLength(6)]
-        public string Username { get; set; }
+        public Post Post { get; set; }
 
-        [Required]
-        [MinLength(6)]
-        public string Password { get; set; }
+        public User User { get; set; }
+
+        public string Content { get; set; }
+
+        public DateTime DateTime { get; set; }
     }
 }
