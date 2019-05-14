@@ -1,3 +1,11 @@
-﻿@{
+﻿@model Forum.Web.ViewModels.HomeIndexVm
+@{
     ViewData["Title"] = "Home";
 }
+
+<ul>
+    @foreach (var theme in Model.Themes)
+    {
+        <li><a href="/@theme.Title/Categories">@theme.Title</a></li>
+    }
+</ul>

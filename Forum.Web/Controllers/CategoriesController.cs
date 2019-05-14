@@ -22,6 +22,7 @@ namespace Forum.Web.Controllers
             var model = new CategoriesIndexVm();
 
             model.Categories = fc.Categories;
+
             model.CategoriesBytheme = fc.Categories
                 .Where(c => c.Theme.Title.ToLower() == theme.ToLower())
                 .ToList();
