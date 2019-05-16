@@ -29,7 +29,9 @@ namespace Forum.Web.Data
 
         public T Add(T entity)
         {
-            throw new NotImplementedException();
+            _fc.Set<T>().Add(entity);
+            _fc.SaveChanges();
+            return entity;
         }
 
         public void Update(T entity)
