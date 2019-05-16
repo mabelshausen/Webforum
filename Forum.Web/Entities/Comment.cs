@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Forum.Web.Entities
 {
-    public class Comment
+    public class Comment : BaseEntity
     {
-        public Guid Id { get; set; }
-
         [Required]
         public Post Post { get; set; }
 
