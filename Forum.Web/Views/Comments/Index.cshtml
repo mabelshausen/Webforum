@@ -5,10 +5,10 @@
 
 <h2>@Model.Post.Title</h2>
 
-<ul>
+<ul class="list-group">
     @foreach (var com in Model.Comments)
     {
-        <li>@com.Content</li>
+        <li class="list-group-item">@com.Content</li>
     }
 </ul>
 

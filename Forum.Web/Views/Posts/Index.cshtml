@@ -5,10 +5,10 @@
 
 <h2>@Model.Category.Title</h2>
 
-<ul>
+<ul class="list-group">
     @foreach (var post in Model.PostsByCategory)
     {
-        <li><a href="/@Model.Theme.Title/@Model.Category.Title/@post.Id">@post.Title</a></li>
+        <li class="list-group-item"><a href="/@Model.Theme.Title/@Model.Category.Title/@post.Id">@post.Title</a></li>
     }
 </ul>
 
