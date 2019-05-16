@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject IRepository<Theme> ThemeRepo
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -25,6 +26,14 @@
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
+            <div>
+                <ul>
+                    @foreach (var theme in ThemeRepo.GetAll())
+                    {
+                    <li><a href="@theme.Title">@theme.Title</a></li>
+                    }
+                </ul>
+            </div>
         </main>
     </div>
 
