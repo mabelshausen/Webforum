@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Forum.Web.Entities
 {
-    interface IRepository<T>
+    public interface IRepository<T>
     {
         IQueryable<T> GetAll();
     }
