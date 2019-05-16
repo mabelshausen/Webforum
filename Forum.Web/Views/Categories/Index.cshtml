@@ -1,0 +1,13 @@
+﻿@model Forum.Web.ViewModels.CategoriesIndexVm
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@Model.Theme.Title</h1>
+
+<ul>
+    @foreach (var cat in Model.CategoriesBytheme)
+    {
+        <li><a href="@Model.Theme.Title/@cat.Title">@cat.Title</a></li>
+    }
+</ul>

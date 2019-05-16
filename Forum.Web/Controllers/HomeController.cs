@@ -5,14 +5,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Forum.Web.Models;
+using Forum.Web.ViewModels;
 
 namespace Forum.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private ForumContext fc;
+
+        public HomeController (ForumContext context)
+        {
+            fc = context;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var model = new HomeIndexVm();
+
+            model.Themes = fc.Themes;
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

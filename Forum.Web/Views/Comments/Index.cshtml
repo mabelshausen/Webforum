@@ -1,0 +1,14 @@
+﻿@model Forum.Web.ViewModels.CommentsIndexVm
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@Model.Post.Title</h1>
+
+<ul>
+    @foreach (var com in Model.Comments)
+    {
+        <li>@com.Content</li>
+    }
+</ul>
+

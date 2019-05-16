@@ -1,0 +1,14 @@
+﻿@model Forum.Web.ViewModels.PostsIndexVm
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@Model.Category.Title</h1>
+
+<ul>
+    @foreach (var post in Model.PostsByCategory)
+    {
+        <li><a href="/@Model.Theme.Title/@Model.Category.Title/@post.Id">@post.Title</a></li>
+    }
+</ul>
+
