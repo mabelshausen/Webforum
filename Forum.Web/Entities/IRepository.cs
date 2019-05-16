@@ -7,6 +7,14 @@ namespace Forum.Web.Entities
 {
     public interface IRepository<T>
     {
+        T GetById(Guid id);
+
         IQueryable<T> GetAll();
+
+        T Add(T entity);
+
+        void Update(T entity);
+
+        void Delete(T entity);
     }
 }

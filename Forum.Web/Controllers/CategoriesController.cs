@@ -14,7 +14,8 @@ namespace Forum.Web.Controllers
         private readonly IRepository<Theme> _themeRepo;
         private readonly IRepository<Category> _categoryRepo;
 
-        public CategoriesController(IRepository<Theme> themeRepo, IRepository<Category> categoryRepo)
+        public CategoriesController(IRepository<Theme> themeRepo, 
+            IRepository<Category> categoryRepo)
         {
             _themeRepo = themeRepo;
             _categoryRepo = categoryRepo;
