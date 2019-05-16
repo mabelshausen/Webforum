@@ -71,7 +71,7 @@ namespace Forum.Web
                     defaults: new { controller = "Posts", action = "Index" });
                 routes.MapRoute(
                     name: "default",
-                    template: "{theme}/{category}/{post}",
+                    template: "{theme}/{category}/{postid}",
                     defaults: new { controller = "Comments", action = "Index" });
             });
         }

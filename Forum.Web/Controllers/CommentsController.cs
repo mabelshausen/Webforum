@@ -17,7 +17,7 @@ namespace Forum.Web.Controllers
             fc = context;
         }
 
-        public IActionResult Index(string theme, string category, string post)
+        public IActionResult Index(string theme, string category, string postid)
         {
             var model = new CommentsIndexVm();
 
@@ -32,7 +32,7 @@ namespace Forum.Web.Controllers
 
             model.Post = fc.Posts
                 .Where(p => p.Category == model.Category)
-                .Where(p => p.Title.ToLower() == post.ToLower())
+                .Where(p => p.Id == Guid.Parse(postid))
                 .First();
 
             model.Comments = fc.Comments
