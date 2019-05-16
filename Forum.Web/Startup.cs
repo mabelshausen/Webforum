@@ -69,6 +69,10 @@ namespace Forum.Web
                     name: "default",
                     template: "{theme}/{category}",
                     defaults: new { controller = "Posts", action = "Index" });
+                routes.MapRoute(
+                    name: "default",
+                    template: "{theme}/{category}/{post}",
+                    defaults: new { controller = "Comments", action = "Index" });
             });
         }
     }
