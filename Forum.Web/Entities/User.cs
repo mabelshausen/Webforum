@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Forum.Web.Entities
 {
-    public class User
+    public class User : BaseEntity
     {
-        public Guid Id { get; set; }
-
         [Required]
         [MaxLength(50)]
         [MinLength(6)]

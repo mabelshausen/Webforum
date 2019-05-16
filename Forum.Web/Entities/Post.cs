@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Forum.Web.Entities
 {
-    public class Post
+    public class Post : BaseEntity
     {
-        public Guid Id { get; set; }
-
         public User User { get; set; }
 
         [Required]

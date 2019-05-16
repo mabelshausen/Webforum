@@ -6,23 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Forum.Web.Models;
 using Forum.Web.ViewModels;
+using Forum.Web.Entities;
 
 namespace Forum.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private ForumContext fc;
+        private readonly IRepository<Theme> _themeRepo;
 
-        public HomeController (ForumContext context)
+        public HomeController (IRepository<Theme> themeRepo)
         {
-            fc = context;
+            _themeRepo = themeRepo;
         }
 
         public IActionResult Index()
         {
             var model = new HomeIndexVm();
 
-            model.Themes = fc.Themes;
+            model.Themes = _themeRepo.GetAll();
 
             return View(model);
         }

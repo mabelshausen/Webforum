@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Forum.Web.Data;
+using Forum.Web.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,6 +36,12 @@ namespace Forum.Web
 
             services.AddDbContext<ForumContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ForumDb")));
+
+            services.AddTransient<IRepository<User>, EfRepository<User>>();
+            services.AddTransient<IRepository<Theme>, EfRepository<Theme>>();
+            services.AddTransient<IRepository<Category>, EfRepository<Category>>();
+            services.AddTransient<IRepository<Post>, EfRepository<Post>>();
+            services.AddTransient<IRepository<Comment>, EfRepository<Comment>>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

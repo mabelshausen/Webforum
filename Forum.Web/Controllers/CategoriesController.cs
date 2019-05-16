@@ -11,22 +11,25 @@ namespace Forum.Web.Controllers
 {
     public class CategoriesController : Controller
     {
-        private ForumContext fc;
+        private readonly IRepository<Theme> _themeRepo;
+        private readonly IRepository<Category> _categoryRepo;
 
-        public CategoriesController (ForumContext context)
+        public CategoriesController(IRepository<Theme> themeRepo, 
+            IRepository<Category> categoryRepo)
         {
-            fc = context;
+            _themeRepo = themeRepo;
+            _categoryRepo = categoryRepo;
         }
 
         public IActionResult Index(string theme)
         {
             var model = new CategoriesIndexVm();
 
-            model.Theme = fc.Themes
+            model.Theme = _themeRepo.GetAll()
                 .Where(t => t.Title.ToLower() == theme.ToLower())
                 .First();
 
-            model.CategoriesBytheme = fc.Categories
+            model.CategoriesBytheme = _categoryRepo.GetAll()
                 .Where(c => c.Theme == model.Theme)
                 .ToList();
 
