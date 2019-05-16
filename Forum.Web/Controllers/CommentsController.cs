@@ -43,10 +43,13 @@ namespace Forum.Web.Controllers
             model.Post = _postRepo.GetAll()
                 .Where(p => p.Category == model.Category)
                 .Where(p => p.Id == Guid.Parse(postid))
+                .Include(p => p.User)
                 .First();
 
             model.Comments = _commentRepo.GetAll()
                 .Where(c => c.Post == model.Post)
+                .Include(c => c.User)
+                .OrderBy(c => c.DateTime)
                 .ToList();
 
             return View(model);
