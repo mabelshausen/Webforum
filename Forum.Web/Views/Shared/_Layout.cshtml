@@ -33,13 +33,13 @@
             <ul class="navbar-nav">
                 @foreach (var theme in ThemeRepo.GetAll())
                 {
-                    <li class="nav-item"><a href="@theme.Title" class="nav-link">@theme.Title</a></li>
+                    <li class="nav-item"><a href="/@theme.Title" class="nav-link">@theme.Title</a></li>
                 }
             </ul>
         </div>
     </nav>
 
-    <div class="container">
+    <div>
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
