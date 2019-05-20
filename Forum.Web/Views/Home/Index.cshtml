@@ -3,9 +3,15 @@
     ViewData["Title"] = "Home";
 }
 
-<ul>
+<h2>Themes</h2>
+
+<ul class="list-group">
     @foreach (var theme in Model.Themes)
     {
-        <li><a href="@theme.Title">@theme.Title</a></li>
+        <li>
+            <a href="/@theme.Title" class="list-group-item list-group-item-action">
+                <h5>@theme.Title</h5>
+            </a>
+        </li>
     }
 </ul>
