@@ -7,20 +7,23 @@
     <div class="card-header">
         <h2>@Model.Post.Title</h2>
     </div>
-    <div class="card-body">
-        <div>@Model.Post.Content</div>
-        <div class="font-weight-bold">@Model.Post.User.Username</div>
-        <div class="text-muted">@Model.Post.DateTime</div>
+    <div class="card-body flex-column">
+        <div class="d-flex justify-content-between">
+            <span>@Model.Post.Content</span>
+            <span class="text-muted">@Model.Post.DateTime</span>
+        </div>
+        <span class="font-weight-bold">@Model.Post.User.Username</span>
     </div>
+    
 </div>
 
 <ul class="list-group">
     @foreach (var com in Model.Comments)
     {
         <li class="list-group-item">
-            <div class="font-weight-bold">@com.User.Username</div>
-            <div>@com.Content</div>
-            <div class="text-muted">@com.DateTime</div>
+            <span class="font-weight-bold">@com.User.Username</span>
+            <span>@com.Content</span>
+            <span class="text-muted">@com.DateTime</span>
         </li>
     }
 </ul>
