@@ -9,7 +9,14 @@
 <ul class="list-group">
     @foreach (var post in Model.PostsByCategory)
     {
-        <li class="list-group-item"><a href="/@Model.Theme.Title/@Model.Category.Title/@post.Id">@post.Title</a></li>
+        <li>
+            <a href="/@Model.Theme.Title/@Model.Category.Title/@post.Id" class="list-group-item list-group-item-action flex-column">
+                <div class="d-flex justify-content-between">
+                    <h5>@post.Title</h5>
+                    <small>@post.DateTime.ToString("HH:mm, dd MMMM yyyy")</small>
+                </div>
+            </a>
+        </li>
     }
 </ul>
 
