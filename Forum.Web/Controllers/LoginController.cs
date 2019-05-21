@@ -38,9 +38,18 @@ namespace Forum.Web.Controllers
                 user.Username = registerViewModel.Username;
                 user.Password = registerViewModel.Password;
 
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return new RedirectToActionResult("Index", "Home", null);
+                var UsernameAlreadyTaken = _context.Users.Where(u => u.Username == user.Username).FirstOrDefault();
+                if (UsernameAlreadyTaken is null)
+                {
+                    _context.Add(user);
+                    await _context.SaveChangesAsync();
+                    return new RedirectToActionResult("Index", "Home", null);
+                }
+                else
+                {
+                    return View(registerViewModel);
+                }
+
             }
             else
             {
