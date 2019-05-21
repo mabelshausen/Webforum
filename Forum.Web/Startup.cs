@@ -35,6 +35,8 @@ namespace Forum.Web
             services.AddDbContext<ForumContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ForumDb")));
 
+            services.AddSession();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -55,6 +57,7 @@ namespace Forum.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
