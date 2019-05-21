@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Forum.Web.Data;
+using Forum.Web.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -37,6 +39,12 @@ namespace Forum.Web
 
             services.AddSession();
 
+            services.AddTransient<IRepository<User>, EfRepository<User>>();
+            services.AddTransient<IRepository<Theme>, EfRepository<Theme>>();
+            services.AddTransient<IRepository<Category>, EfRepository<Category>>();
+            services.AddTransient<IRepository<Post>, EfRepository<Post>>();
+            services.AddTransient<IRepository<Comment>, EfRepository<Comment>>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -64,6 +72,18 @@ namespace Forum.Web
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "categoriesByTheme",
+                    template: "{theme}",
+                    defaults: new { controller = "Categories", action = "Index" });
+                routes.MapRoute(
+                    name: "default",
+                    template: "{theme}/{category}",
+                    defaults: new { controller = "Posts", action = "Index" });
+                routes.MapRoute(
+                    name: "default",
+                    template: "{theme}/{category}/{postid}",
+                    defaults: new { controller = "Comments", action = "Index" });
             });
         }
     }

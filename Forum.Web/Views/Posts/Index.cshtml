@@ -1,0 +1,22 @@
+﻿@model Forum.Web.ViewModels.PostsIndexVm
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>@Model.Category.Title</h2>
+<p>@Model.Category.Description</p>
+
+<ul class="list-group">
+    @foreach (var post in Model.PostsByCategory)
+    {
+        <li>
+            <a href="/@Model.Theme.Title/@Model.Category.Title/@post.Id" class="list-group-item list-group-item-action flex-column">
+                <div class="d-flex justify-content-between">
+                    <h5>@post.Title</h5>
+                    <span class="text-muted">@post.DateTime.ToString("HH:mm, dd MMMM yyyy")</span>
+                </div>
+            </a>
+        </li>
+    }
+</ul>
+

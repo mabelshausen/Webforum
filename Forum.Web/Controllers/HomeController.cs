@@ -5,14 +5,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Forum.Web.Models;
+using Forum.Web.ViewModels;
+using Forum.Web.Entities;
 
 namespace Forum.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IRepository<Theme> _themeRepo;
+
+        public HomeController (IRepository<Theme> themeRepo)
+        {
+            _themeRepo = themeRepo;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var model = new HomeIndexVm();
+
+            model.Themes = _themeRepo.GetAll();
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

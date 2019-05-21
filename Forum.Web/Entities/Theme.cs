@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Forum.Web.Entities
 {
-    public class Theme
+    public class Theme : BaseEntity
     {
-        public Guid Id { get; set; }
-
         [Required]
         [MaxLength(100)]
         public string Title { get; set; }
