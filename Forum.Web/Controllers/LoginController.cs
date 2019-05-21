@@ -14,8 +14,14 @@ namespace Forum.Web.Controllers
             return View(loginViewModel);
         }
 
-        
-        public IActionResult Register(RegisterViewModel registerViewModel)
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
             return View(registerViewModel);
         }
