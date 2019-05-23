@@ -1,0 +1,13 @@
+﻿@model Forum.Web.Entities.Comment
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Comment</h1>
+
+<form asp-controller="Comments" asp-action="UpdateComment" method="post">
+    <div class="form-group">
+        <textarea asp-for="Content" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-light">Edit</button>
+</form>
