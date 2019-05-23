@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Forum.Web.Entities;
 using Forum.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Forum.Web.Controllers
 {
@@ -38,6 +39,7 @@ namespace Forum.Web.Controllers
 
             model.PostsByCategory = _postRepo.GetAll()
                 .Where(p => p.Category == model.Category)
+                .Include(p => p.User)
                 .ToList();
 
             return View(model);
