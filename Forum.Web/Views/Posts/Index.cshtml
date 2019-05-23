@@ -6,6 +6,10 @@
 <h2>@Model.Category.Title</h2>
 <p>@Model.Category.Description</p>
 
+<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">New Post</button>
+
+
+
 <ul class="list-group">
     @foreach (var post in Model.PostsByCategory)
     {
