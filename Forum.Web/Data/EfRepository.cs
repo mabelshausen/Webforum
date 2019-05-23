@@ -28,6 +28,11 @@ namespace Forum.Web.Data
                 .Where(e => !e.IsDeleted);
         }
 
+        public IQueryable<T> GetAllWithDeleted()
+        {
+            return _fc.Set<T>();
+        }
+
         public T Add(T entity)
         {
             _fc.Set<T>().Add(entity);
