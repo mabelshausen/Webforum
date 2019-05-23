@@ -65,7 +65,7 @@ namespace Forum.Web.Controllers
 
         public IActionResult Logout()
         {
-            UserState userState = new UserState { UserId = Guid.Parse(null), Username = null, IsLoggedIn = false, IsAdmin = false };
+            UserState userState = new UserState { UserId = Guid.Empty, Username = null, IsLoggedIn = false, IsAdmin = false };
             HttpContext.Session.SetString(Constants.UserStatekey, JsonConvert.SerializeObject(userState));
             return new RedirectToActionResult("Login", "Login", null);
         }
