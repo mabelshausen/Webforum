@@ -13,5 +13,15 @@ namespace Forum.Web.ViewModels
         public Category Category { get; set; }
 
         public IEnumerable<Post> PostsByCategory { get; set; }
+
+        public string Title { get; set; }
+
+        public string Content { get; set; }
+
+        public Guid CategoryId { get; set; }
+
+        public string ActiveTheme { get; set; }
+
+        public string ActiveCategory { get; set; }
     }
 }
