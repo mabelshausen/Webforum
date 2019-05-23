@@ -84,6 +84,10 @@ namespace Forum.Web
                     name: "default",
                     template: "{theme}/{category}/{postid}",
                     defaults: new { controller = "Comments", action = "Index" });
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Comments}/{action=Edit}/{id}"
+                    );
             });
         }
     }
