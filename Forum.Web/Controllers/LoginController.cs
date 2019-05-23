@@ -37,10 +37,12 @@ namespace Forum.Web.Controllers
 
                 if (user is null)
                 {
+                    TempData[TemporaryMessage.temporaryMessage] = "An error occured while attempting to log in. Did you fill everything in correctly? ";
                     return View(loginViewModel);
                 }
                 else
                 {
+                    TempData[TemporaryMessage.temporaryMessage] = $@"You have been successfully logged in as {loginViewModel.Username}. ";
                     HttpContext.Session.SetString("Username", user.Username);
                     return new RedirectToActionResult("Index", "Home", null);
                 }
