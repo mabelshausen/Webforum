@@ -40,6 +40,7 @@ namespace Forum.Web.Controllers
             model.PostsByCategory = _postRepo.GetAll()
                 .Where(p => p.Category == model.Category)
                 .Include(p => p.User)
+                .OrderBy(p => p.DateTime)
                 .ToList();
 
             return View(model);
