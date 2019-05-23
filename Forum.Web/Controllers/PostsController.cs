@@ -3,25 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Forum.Web.Entities;
+using Forum.Web.Models;
 using Forum.Web.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+
 
 namespace Forum.Web.Controllers
 {
+    using Forum.Web.Constants;
     public class PostsController : Controller
     {
         private readonly IRepository<Theme> _themeRepo;
         private readonly IRepository<Category> _categoryRepo;
         private readonly IRepository<Post> _postRepo;
+        private readonly IRepository<User> _userRepo;
 
         public PostsController (IRepository<Theme> themeRepo, 
             IRepository<Category> categoryRepo,
-            IRepository<Post> postRepo)
+            IRepository<Post> postRepo,
+            IRepository<User> userRepo)
         {
             _themeRepo = themeRepo;
             _categoryRepo = categoryRepo;
             _postRepo = postRepo;
+            _userRepo = userRepo;
         }
 
         public IActionResult Index(string theme, string category)
@@ -43,6 +51,14 @@ namespace Forum.Web.Controllers
                 .OrderBy(p => p.DateTime)
                 .ToList();
 
+            TCPState tcp = new TCPState
+            {
+                ThemeId = model.Theme.Id,
+                CategoryId = model.Category.Id
+            };
+
+            HttpContext.Session.SetString(Constants.TCPStateKey, JsonConvert.SerializeObject(tcp));
+
             return View(model);
         }
 
@@ -50,6 +66,9 @@ namespace Forum.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreatePost(PostsIndexVm model)
         {
+            string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
+            var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
+
             if (model.Content != "")
             {
                 Post post = new Post
@@ -57,7 +76,8 @@ namespace Forum.Web.Controllers
                     Title = model.Title,
                     Content = model.Content,
                     DateTime = DateTime.Now,
-                    Id = model.CategoryId
+                    Category = _categoryRepo.GetById(tcp.CategoryId),
+                    User = null
                 };
 
                 _postRepo.Add(post);
@@ -65,8 +85,8 @@ namespace Forum.Web.Controllers
 
             return RedirectToAction("Index", new
             {
-                theme = model.ActiveTheme,
-                category = model.ActiveCategory,
+                theme = _themeRepo.GetById(tcp.ThemeId).Title,
+                category = _categoryRepo.GetById(tcp.CategoryId).Title
             });
         }
     }
