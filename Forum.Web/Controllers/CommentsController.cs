@@ -111,15 +111,52 @@ namespace Forum.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult UpdateComment(Comment comment)
         {
-            string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
-            var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
-            
             if (comment == null)
             {
                 return NotFound();
             }
 
+            string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
+            var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
+
             _commentRepo.Update(comment);
+
+            return RedirectToAction("Index", new
+            {
+                theme = _themeRepo.GetById(tcp.ThemeId).Title,
+                category = _categoryRepo.GetById(tcp.CategoryId).Title,
+                postid = tcp.PostId
+            });
+        }
+
+        public IActionResult Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var comment = _commentRepo.GetById(Guid.Parse(id));
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            return View(comment);
+        }
+
+        public IActionResult DeleteComment(Comment comment)
+        {
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            var commentToDelete = _commentRepo.GetById(comment.Id);
+            _commentRepo.Delete(commentToDelete);
+
+            string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
+            var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
 
             return RedirectToAction("Index", new
             {

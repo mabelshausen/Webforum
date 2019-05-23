@@ -42,7 +42,8 @@ namespace Forum.Web.Data
 
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            _fc.Set<T>().Remove(entity);
+            _fc.SaveChanges();
         }
     }
 }
