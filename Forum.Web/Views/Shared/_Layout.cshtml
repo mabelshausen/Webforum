@@ -29,13 +29,14 @@
 
         @{ var statekey = Context.Session.GetString(Constants.UserStatekey);}
 
-        @if (statekey == null) {
+        @if (statekey == null)
+        {
             var us = new UserState
             {
                 IsLoggedIn = false
             };
             statekey = JsonConvert.SerializeObject(us);
-            Context.Session.SetString(Constants.UserStatekey, statekey);           
+            Context.Session.SetString(Constants.UserStatekey, statekey);
         }
 
         @{ var userstate = JsonConvert.DeserializeObject<UserState>(statekey);}
@@ -45,6 +46,7 @@
             <h3>
                 Logged in as @userstate.Username
             </h3>
+            <h2><a asp-controller="Login" asp-action="Logout" style="float: right">Log out</a></h2>
         }
 
         else

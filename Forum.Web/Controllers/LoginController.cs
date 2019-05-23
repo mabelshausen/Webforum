@@ -58,6 +58,13 @@ namespace Forum.Web.Controllers
 
         }
 
+        public IActionResult Logout()
+        {
+            UserState userState = new UserState { Username = null, IsLoggedIn = false, IsAdmin = false };
+            HttpContext.Session.SetString(Constants.UserStatekey, JsonConvert.SerializeObject(userState));
+            return new RedirectToActionResult("Login", "Login", null);
+        }
+
         public IActionResult Register()
         {
             return View();
