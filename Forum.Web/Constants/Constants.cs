@@ -7,6 +7,6 @@ namespace Forum.Web.Constants
 {
     public static class Constants
     {
-        public const string Statekey = "SessionUser";
+        public const string UserStatekey = "SessionUser";
     }
 }

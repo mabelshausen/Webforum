@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace Forum.Web.Controllers
 {
+    using Forum.Web.Constants;
+    using Newtonsoft.Json;
+
     public class LoginController : Controller
     {
 
@@ -43,7 +46,8 @@ namespace Forum.Web.Controllers
                 else
                 {
                     TempData[TemporaryMessage.temporaryMessage] = $@"You have been successfully logged in as {loginViewModel.Username}. ";
-                    HttpContext.Session.SetString("Username", user.Username);
+                    UserState userState = new UserState { Username = user.Username, IsLoggedIn = true, IsAdmin = false };
+                    HttpContext.Session.SetString(Constants.UserStatekey, JsonConvert.SerializeObject(userState));
                     return new RedirectToActionResult("Index", "Home", null);
                 }
             }
