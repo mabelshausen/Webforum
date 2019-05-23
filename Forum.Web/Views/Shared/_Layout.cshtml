@@ -22,9 +22,36 @@
 <body>
     <header class="border-bottom">
         <h1>Forum</h1>
-        <h2>
-            <a asp-controller="Login" asp-action="Login" style="float: right">Login/Register</a>
-        </h2>
+
+        @using Microsoft.AspNetCore.Http;
+        @using Forum.Web.Constants;
+        @using Newtonsoft.Json;
+
+        @{ var statekey = Context.Session.GetString(Constants.UserStatekey);}
+
+        @if (statekey == null) {
+            var us = new UserState
+            {
+                IsLoggedIn = false
+            };
+            statekey = JsonConvert.SerializeObject(us);
+            Context.Session.SetString(Constants.UserStatekey, statekey);           
+        }
+
+        @{ var userstate = JsonConvert.DeserializeObject<UserState>(statekey);}
+
+        @if (userstate.IsLoggedIn)
+        {
+            <h3>
+                Logged in as @userstate.Username
+            </h3>
+        }
+
+        else
+        {
+            <h2><a asp-controller="Login" asp-action="Login" style="float: right">Login/Register</a></h2>
+        }
+
     </header>
 
     <nav class="navbar navbar-expand-md navbar-light bg-light fixed-left">
