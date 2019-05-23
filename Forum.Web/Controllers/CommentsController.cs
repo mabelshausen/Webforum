@@ -87,7 +87,7 @@ namespace Forum.Web.Controllers
             string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
             var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
 
-            if (comment.Content != "")
+            if (comment.Content != null && comment.Content.Replace(" ", "") != "")
             {
                 comment.DateTime = DateTime.Now;
                 comment.Post = _postRepo.GetById(tcp.PostId);
