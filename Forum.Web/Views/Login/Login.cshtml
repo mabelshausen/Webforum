@@ -1,0 +1,24 @@
+﻿@model Forum.Web.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Login</h1>
+
+<form asp-controller="Login" asp-action="Login" method="post">
+
+    <div>
+        <label asp-for="Username"></label>
+        <input asp-for="Username" />
+        <span asp-validation-for="Username"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <input type="submit" value="Log in"/>
+</form>
+
+<a asp-controller="Login" asp-action="Register">Don't have an account yet? Click here to create one! </a>
