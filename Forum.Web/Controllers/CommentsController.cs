@@ -54,7 +54,7 @@ namespace Forum.Web.Controllers
                 .Include(p => p.User)
                 .First();
 
-            model.Comments = _commentRepo.GetAll()
+            model.Comments = _commentRepo.GetAllWithDeleted()
                 .Where(c => c.Post == model.Post)
                 .Include(c => c.User)
                 .OrderBy(c => c.DateTime)
