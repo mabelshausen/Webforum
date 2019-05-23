@@ -17,11 +17,5 @@ namespace Forum.Web.ViewModels
         public string Title { get; set; }
 
         public string Content { get; set; }
-
-        public Guid CategoryId { get; set; }
-
-        public string ActiveTheme { get; set; }
-
-        public string ActiveCategory { get; set; }
     }
 }

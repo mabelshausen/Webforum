@@ -26,9 +26,6 @@
                         <label asp-for="Content">Comment</label>
                         <textarea asp-for="Content" class="form-control"></textarea>
                     </div>
-                    <input asp-for="CategoryId" type="hidden" value="@Model.Category.Id" />
-                    <input asp-for="ActiveTheme" type="hidden" value="@Model.Theme.Title" />
-                    <input asp-for="ActiveCategory" type="hidden" value="@Model.Category.Title" />
                     <button type="submit" class="btn btn-light">Post</button>
                 </div>
             </div>
