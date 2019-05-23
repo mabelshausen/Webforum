@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Forum.Web.Models;
 using Forum.Web.Entities;
 using Forum.Web.Data;
+using Microsoft.AspNetCore.Http;
 
 namespace Forum.Web.Controllers
 {
@@ -28,7 +29,27 @@ namespace Forum.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(LoginViewModel loginViewModel)
         {
-            return View(loginViewModel);
+            if (ModelState.IsValid)
+            {
+                var password = loginViewModel.Password;
+                var hashedPassword = PasswordHasher.Hashing(password);
+                var user = (from l in _context.Users where l.Username == loginViewModel.Username && l.Password == hashedPassword select l).FirstOrDefault();
+
+                if (user is null)
+                {
+                    return View(loginViewModel);
+                }
+                else
+                {
+                    HttpContext.Session.SetString("Username", user.Username);
+                    return new RedirectToActionResult("Index", "Home", null);
+                }
+            }
+            else
+            {
+                return View(loginViewModel);
+            }
+
         }
 
         public IActionResult Register()
@@ -66,7 +87,7 @@ namespace Forum.Web.Controllers
             }
             else
             {
-                TempData[TemporaryMessage.temporaryMessage] = "An error occured while attempting to create your account. Did you correctly fill everything in? ";
+                TempData[TemporaryMessage.temporaryMessage] = "An error occured while attempting to create your account. Did you fill everything in correctly? ";
                 return View(registerViewModel);
             }
 
