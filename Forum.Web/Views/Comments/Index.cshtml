@@ -8,7 +8,7 @@
         <h2>@Model.Post.Title</h2>
     </div>
     <div class="card-body flex-column">
-        <span class="font-weight-bold">@Model.Post.User?.Username</span>
+        <span class="font-weight-bold">@(Model.Post.User?.Username ?? "[user deleted]")</span>
         <div class="d-flex justify-content-between">
             <span>@Model.Post.Content</span>
             <span class="text-muted">@Model.Post.DateTime.ToString("HH:mm, dd MMMM yyyy")</span>
@@ -25,7 +25,7 @@
     @foreach (var com in Model.Comments)
     {
     <li class="list-group-item flex-column">
-        <span class="font-weight-bold">@com.User?.Username</span>
+        <span class="font-weight-bold">@(com.User?.Username ?? "[user deleted]")</span>
         <div class="d-flex justify-content-between">
             <span>@Html.Raw(com.Content.Replace(Environment.NewLine, "<br/>"))</span>
             <span class="text-muted">@com.DateTime.ToString("HH:mm, dd MMMM yyyy")</span>
