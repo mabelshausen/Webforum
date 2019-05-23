@@ -37,8 +37,6 @@
     </form>
 }
 
-
-
 <ul class="list-group">
     @foreach (var post in Model.PostsByCategory)
     {
@@ -51,8 +49,11 @@
                 <span class="text-muted col-3">
                     Created by @post.User.Username<br />
                     on @post.DateTime.ToString("HH:mm, dd MMMM yyyy")<br />
-                    <a asp-action="Edit" asp-route-id="@post.Id">Edit</a>
-                    <button type="button" class="btn btn-secondary">Remove</button>
+                    @if (Model.IsLoggedIn && post.User?.Id == Model.UserId)
+                    {
+                        <a asp-action="Edit" asp-route-id="@post.Id" class="btn btn-secondary">Edit</a>
+                        <button type="button" class="btn btn-secondary">Remove</button>
+                    }
                 </span>
             </div>
         </li>
