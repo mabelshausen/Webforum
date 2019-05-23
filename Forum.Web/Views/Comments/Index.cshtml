@@ -21,9 +21,6 @@
     <div class="form-group">
         <textarea asp-for="Content" class="form-control"></textarea>
     </div>
-    <input asp-for="PostId" type="hidden" value="@Model.Post.Id.ToString()" />
-    <input asp-for="ThemeName" type="hidden" value="@Model.Theme.Title" />
-    <input asp-for="CatName" type="hidden" value="@Model.Category.Title" />
     <button type="submit" class="btn btn-light">Post</button>
 </form>
 

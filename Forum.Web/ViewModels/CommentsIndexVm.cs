@@ -17,11 +17,5 @@ namespace Forum.Web.ViewModels
         public IEnumerable<Comment> Comments { get; set; }
 
         public string Content { get; set; }
-
-        public string PostId { get; set; }
-
-        public string ThemeName { get; set; }
-
-        public string CatName { get; set; }
     }
 }

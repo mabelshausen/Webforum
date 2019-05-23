@@ -73,6 +73,9 @@ namespace Forum.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateComment(CommentsIndexVm model)
         {
+            string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
+            var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
+
             if (model.Content != "")
             {
                 Comment comment = new Comment
@@ -80,16 +83,16 @@ namespace Forum.Web.Controllers
                     Content = model.Content,
                     DateTime = DateTime.Now,
                     User = null,
-                    Post = _postRepo.GetById(Guid.Parse(model.PostId))
+                    Post = _postRepo.GetById(tcp.PostId)
                 };
 
                 _commentRepo.Add(comment);
             }
 
             return RedirectToAction("Index", new {
-                theme = model.ThemeName,
-                category = model.CatName,
-                postid = model.PostId
+                theme = _themeRepo.GetById(tcp.ThemeId).Title,
+                category = _categoryRepo.GetById(tcp.CategoryId).Title,
+                postid = tcp.PostId
             });
         }
     }
