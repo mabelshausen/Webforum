@@ -5,12 +5,14 @@
 
 <h3>Edit Post</h3>
 
-<form asp-controller="Post" asp-action="UpdatePost" method="post">
+<form asp-controller="Posts" asp-action="UpdatePost" method="post">
     <div class="form-group">
         <label asp-for="Title">Title</label>
         <input asp-for="Title" class="form-control" />
         <label asp-for="Content">Comment</label>
         <textarea asp-for="Content" class="form-control"></textarea>
+        <input asp-for="Id" type="hidden" />
+        <input asp-for="DateTime" type="hidden" />
     </div>
     <button type="submit" class="btn btn-secondary">Edit</button>
 </form>

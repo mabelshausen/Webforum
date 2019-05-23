@@ -121,6 +121,8 @@ namespace Forum.Web.Controllers
             string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
             var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
 
+            _postRepo.Update(post);
+
             return RedirectToAction("Index", new
             {
                 theme = _themeRepo.GetById(tcp.ThemeId).Title,
