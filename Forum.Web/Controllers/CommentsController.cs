@@ -20,16 +20,19 @@ namespace Forum.Web.Controllers
         private readonly IRepository<Category> _categoryRepo;
         private readonly IRepository<Post> _postRepo;
         private readonly IRepository<Comment> _commentRepo;
+        private readonly IRepository<User> _userRepo;
 
         public CommentsController(IRepository<Theme> themeRepo,
             IRepository<Category> categoryRepo,
             IRepository<Post> postRepo,
-            IRepository<Comment> commentRepo)
+            IRepository<Comment> commentRepo,
+            IRepository<User> userRepo)
         {
             _themeRepo = themeRepo;
             _categoryRepo = categoryRepo;
             _postRepo = postRepo;
             _commentRepo = commentRepo;
+            _userRepo = userRepo;
         }
 
         public IActionResult Index(string theme, string category, string postid)
@@ -76,10 +79,14 @@ namespace Forum.Web.Controllers
             string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
             var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
 
+            string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
+            var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
+
             if (comment.Content != "")
             {
                 comment.DateTime = DateTime.Now;
                 comment.Post = _postRepo.GetById(tcp.PostId);
+                comment.User = _userRepo.GetById(userState.UserId);
 
                 _commentRepo.Add(comment);
             }
