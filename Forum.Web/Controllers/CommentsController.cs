@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Forum.Web.Entities;
+using Forum.Web.Models;
 using Forum.Web.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Forum.Web.Controllers
 {
+    using Forum.Web.Constants;
+
     public class CommentsController : Controller
     {
         private readonly IRepository<Theme> _themeRepo;
@@ -51,6 +56,15 @@ namespace Forum.Web.Controllers
                 .Include(c => c.User)
                 .OrderBy(c => c.DateTime)
                 .ToList();
+
+            TCPState tcp = new TCPState
+            {
+                ThemeId = model.Theme.Id,
+                CategoryId = model.Category.Id,
+                PostId = model.Post.Id
+            };
+
+            HttpContext.Session.SetString(Constants.TCPStateKey, JsonConvert.SerializeObject(tcp));
 
             return View(model);
         }

@@ -43,6 +43,8 @@ namespace Forum.Web
             services.AddTransient<IRepository<Post>, EfRepository<Post>>();
             services.AddTransient<IRepository<Comment>, EfRepository<Comment>>();
 
+            services.AddSession();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -63,6 +65,7 @@ namespace Forum.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

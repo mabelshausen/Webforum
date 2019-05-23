@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Forum.Web.Entities;
+using Forum.Web.Models;
 using Forum.Web.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Forum.Web.Controllers
 {
+    using Forum.Web.Constants;
+
     public class PostsController : Controller
     {
         private readonly IRepository<Theme> _themeRepo;
@@ -39,6 +44,14 @@ namespace Forum.Web.Controllers
             model.PostsByCategory = _postRepo.GetAll()
                 .Where(p => p.Category == model.Category)
                 .ToList();
+
+            TCPState tcp = new TCPState
+            {
+                ThemeId = model.Theme.Id,
+                CategoryId = model.Category.Id
+            };
+
+            HttpContext.Session.SetString(Constants.TCPStateKey, JsonConvert.SerializeObject(tcp));
 
             return View(model);
         }
