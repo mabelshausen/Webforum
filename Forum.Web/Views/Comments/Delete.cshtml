@@ -8,7 +8,7 @@
 </h5>
 <div class="card flex-column">
     <div class="d-flex justify-content-between">
-        <span>@Model.Content</span>
+        <span>@Html.Raw(Model.Content.Replace(Environment.NewLine, "<br/>"))</span>
         <span class="text-muted">@Model.DateTime.ToString("HH:mm, dd MMMM yyyy")</span>
     </div>
 </div>
