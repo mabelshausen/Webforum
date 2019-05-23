@@ -114,6 +114,11 @@ namespace Forum.Web.Controllers
             string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
             var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
             
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
             _commentRepo.Update(comment);
 
             return RedirectToAction("Index", new
