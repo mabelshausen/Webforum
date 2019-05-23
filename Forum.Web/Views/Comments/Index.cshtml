@@ -14,15 +14,9 @@
             <span class="text-muted">@Model.Post.DateTime.ToString("HH:mm, dd MMMM yyyy")</span>
         </div>
     </div>
-    
 </div>
 
-<form asp-controller="Comments" asp-action="CreateComment" method="post">
-    <div class="form-group">
-        <textarea asp-for="Content" class="form-control"></textarea>
-    </div>
-    <button type="submit" class="btn btn-light">Post</button>
-</form>
+<partial name="CreateCommentPartial" for="Comment" />
 
 <ul class="list-group">
     @foreach (var com in Model.Comments)

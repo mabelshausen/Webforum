@@ -16,6 +16,6 @@ namespace Forum.Web.ViewModels
 
         public IEnumerable<Comment> Comments { get; set; }
 
-        public string Content { get; set; }
+        public Comment Comment { get; set; }
     }
 }

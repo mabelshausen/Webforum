@@ -71,20 +71,15 @@ namespace Forum.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateComment(CommentsIndexVm model)
+        public IActionResult CreateComment(Comment comment)
         {
             string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
             var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
 
-            if (model.Content != "")
+            if (comment.Content != "")
             {
-                Comment comment = new Comment
-                {
-                    Content = model.Content,
-                    DateTime = DateTime.Now,
-                    User = null,
-                    Post = _postRepo.GetById(tcp.PostId)
-                };
+                comment.DateTime = DateTime.Now;
+                comment.Post = _postRepo.GetById(tcp.PostId);
 
                 _commentRepo.Add(comment);
             }
