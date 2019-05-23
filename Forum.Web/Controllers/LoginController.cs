@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Forum.Web.Models;
 using Forum.Web.Entities;
+using Forum.Web.Data;
 
 namespace Forum.Web.Controllers
 {
@@ -34,9 +35,11 @@ namespace Forum.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var password = registerViewModel.Password;
+                var hashedPassword = PasswordHasher.Hashing(password);
                 var user = new User();
                 user.Username = registerViewModel.Username;
-                user.Password = registerViewModel.Password;
+                user.Password = hashedPassword;
 
                 var UsernameAlreadyTaken = _context.Users.Where(u => u.Username == user.Username).FirstOrDefault();
                 if (UsernameAlreadyTaken is null)
