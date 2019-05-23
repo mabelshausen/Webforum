@@ -98,5 +98,10 @@ namespace Forum.Web.Controllers
             }
 
         }
+
+        public IActionResult TermsOfService()
+        {
+            return View();
+        }
     }
 }
