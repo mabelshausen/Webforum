@@ -18,13 +18,14 @@ namespace Forum.Web.Data
         public T GetById(Guid id)
         {
             return _fc.Set<T>()
-                .Where(e => e.Id == id)
+                .Where(e => e.Id == id && !e.IsDeleted)
                 .First();
         }
 
         public IQueryable<T> GetAll()
         {
-            return _fc.Set<T>();
+            return _fc.Set<T>()
+                .Where(e => !e.IsDeleted);
         }
 
         public T Add(T entity)
@@ -42,8 +43,8 @@ namespace Forum.Web.Data
 
         public void Delete(T entity)
         {
-            _fc.Set<T>().Remove(entity);
-            _fc.SaveChanges();
+            entity.IsDeleted = true;
+            Update(entity);
         }
     }
 }
