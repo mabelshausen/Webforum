@@ -37,6 +37,8 @@ namespace Forum.Web
             services.AddDbContext<ForumContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ForumDb")));
 
+            services.AddSession();
+
             services.AddTransient<IRepository<User>, EfRepository<User>>();
             services.AddTransient<IRepository<Theme>, EfRepository<Theme>>();
             services.AddTransient<IRepository<Category>, EfRepository<Category>>();
@@ -63,6 +65,7 @@ namespace Forum.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

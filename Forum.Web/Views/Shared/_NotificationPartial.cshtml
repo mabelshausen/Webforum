@@ -1,0 +1,6 @@
+﻿@using Forum.Web.Constants;
+
+@if (TempData.ContainsKey(TemporaryMessage.temporaryMessage))
+{
+    <div class="TemporaryMessage">@Html.Raw(TempData[TemporaryMessage.temporaryMessage])</div>
+}
