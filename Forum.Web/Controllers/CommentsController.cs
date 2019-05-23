@@ -113,8 +113,8 @@ namespace Forum.Web.Controllers
         {
             string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
             var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
-
-
+            
+            _commentRepo.Update(comment);
 
             return RedirectToAction("Index", new
             {

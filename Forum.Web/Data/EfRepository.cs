@@ -36,7 +36,8 @@ namespace Forum.Web.Data
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _fc.Set<T>().Update(entity);
+            _fc.SaveChanges();
         }
 
         public void Delete(T entity)
