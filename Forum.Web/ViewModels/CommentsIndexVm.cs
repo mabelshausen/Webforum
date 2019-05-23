@@ -17,5 +17,9 @@ namespace Forum.Web.ViewModels
         public IEnumerable<Comment> Comments { get; set; }
 
         public Comment Comment { get; set; }
+
+        public bool IsLoggedIn { get; set; }
+
+        public Guid UserId { get; set; }
     }
 }

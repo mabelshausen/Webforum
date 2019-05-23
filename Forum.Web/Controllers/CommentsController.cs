@@ -60,6 +60,11 @@ namespace Forum.Web.Controllers
                 .OrderBy(c => c.DateTime)
                 .ToList();
 
+            string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
+            var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
+            model.IsLoggedIn = userState.IsLoggedIn;
+            model.UserId = userState.UserId;
+
             TCPState tcp = new TCPState
             {
                 ThemeId = model.Theme.Id,

@@ -16,7 +16,10 @@
     </div>
 </div>
 
-<partial name="CreateCommentPartial" for="Comment" />
+@if (Model.IsLoggedIn)
+{
+    <partial name="CreateCommentPartial" for="Comment" />
+}
 
 <ul class="list-group">
     @foreach (var com in Model.Comments)
@@ -27,8 +30,11 @@
             <span>@Html.Raw(com.Content.Replace(Environment.NewLine, "<br/>"))</span>
             <span class="text-muted">@com.DateTime.ToString("HH:mm, dd MMMM yyyy")</span>
         </div>
-        <a asp-action="Edit" asp-route-id="@com.Id">Edit</a>
-        <a asp-action="Delete" asp-route-id="@com.Id">Delete</a>
+        @if (Model.IsLoggedIn && com.User?.Id == Model.UserId)
+        {
+            <a asp-action="Edit" asp-route-id="@com.Id">Edit</a>
+            <a asp-action="Delete" asp-route-id="@com.Id">Delete</a>
+        }
     </li>
     }
 </ul>
