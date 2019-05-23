@@ -54,5 +54,29 @@ namespace Forum.Web.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateComment(CommentsIndexVm model)
+        {
+            if (model.Content != "")
+            {
+                Comment comment = new Comment
+                {
+                    Content = model.Content,
+                    DateTime = DateTime.Now,
+                    User = null,
+                    Post = _postRepo.GetById(Guid.Parse(model.PostId))
+                };
+
+                _commentRepo.Add(comment);
+            }
+
+            return RedirectToAction("Index", new {
+                theme = model.ThemeName,
+                category = model.CatName,
+                postid = model.PostId
+            });
+        }
     }
 }
