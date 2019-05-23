@@ -17,6 +17,13 @@
     
 </div>
 
+<form asp-controller="Comments" asp-action="CreateComment" method="post">
+    <div class="form-group">
+        <textarea asp-for="Content" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-light">Post</button>
+</form>
+
 <ul class="list-group">
     @foreach (var com in Model.Comments)
     {
