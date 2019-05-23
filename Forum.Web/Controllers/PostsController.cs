@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 namespace Forum.Web.Controllers
 {
     using Forum.Web.Constants;
+
     public class PostsController : Controller
     {
         private readonly IRepository<Theme> _themeRepo;
@@ -51,6 +52,11 @@ namespace Forum.Web.Controllers
                 .OrderBy(p => p.DateTime)
                 .ToList();
 
+            string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
+            var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
+            model.IsLoggedIn = userState.IsLoggedIn;
+            model.UserId = userState.UserId;
+
             TCPState tcp = new TCPState
             {
                 ThemeId = model.Theme.Id,
@@ -68,6 +74,8 @@ namespace Forum.Web.Controllers
         {
             string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
             var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
+            string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
+            var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
 
             if (model.Content != "")
             {
@@ -77,8 +85,8 @@ namespace Forum.Web.Controllers
                     Content = model.Content,
                     DateTime = DateTime.Now,
                     Category = _categoryRepo.GetById(tcp.CategoryId),
-                    User = null
-                };
+                    User = _userRepo.GetById(userState.UserId)
+            };
 
                 _postRepo.Add(post);
             }
@@ -88,6 +96,6 @@ namespace Forum.Web.Controllers
                 theme = _themeRepo.GetById(tcp.ThemeId).Title,
                 category = _categoryRepo.GetById(tcp.CategoryId).Title
             });
-        }
+        }        
     }
 }

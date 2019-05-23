@@ -17,5 +17,9 @@ namespace Forum.Web.ViewModels
         public string Title { get; set; }
 
         public string Content { get; set; }
+
+        public bool IsLoggedIn { get; set; }
+
+        public Guid UserId { get; set; }
     }
 }

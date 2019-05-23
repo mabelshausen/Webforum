@@ -6,32 +6,37 @@
 <h2>@Model.Category.Title</h2>
 <p>@Model.Category.Description</p>
 
-<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">New Post</button>
 
-<!--Modal-->
-<form asp-controller="Posts" asp-action="CreatePost" method="post">
-    <div class="modal" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
 
-                <div class="modal-header">
-                    <h4 class="modal-title">New Post</h4>
+@if (Model.IsLoggedIn == true)
+{
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">New Post</button>
+    <!--Modal-->
+    <form asp-controller="Posts" asp-action="CreatePost" method="post">
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-                </div>
-
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label asp-for="Title">Title</label>
-                        <input asp-for="Title" class="form-control" />
-                        <label asp-for="Content">Comment</label>
-                        <textarea asp-for="Content" class="form-control"></textarea>
+                    <div class="modal-header">
+                        <h4 class="modal-title">New Post</h4>
                     </div>
-                    <button type="submit" class="btn btn-light">Post</button>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label asp-for="Title">Title</label>
+                            <input asp-for="Title" class="form-control" />
+                            <label asp-for="Content">Comment</label>
+                            <textarea asp-for="Content" class="form-control"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-light">Post</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+}
+
+
 
 <ul class="list-group">
     @foreach (var post in Model.PostsByCategory)
