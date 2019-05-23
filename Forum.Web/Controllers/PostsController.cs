@@ -96,6 +96,36 @@ namespace Forum.Web.Controllers
                 theme = _themeRepo.GetById(tcp.ThemeId).Title,
                 category = _categoryRepo.GetById(tcp.CategoryId).Title
             });
-        }        
+        }
+
+        public IActionResult Edit(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var post = _postRepo.GetById(Guid.Parse(id));
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return View(post);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdatePost(Post post)
+        {
+            string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
+            var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
+
+            return RedirectToAction("Index", new
+            {
+                theme = _themeRepo.GetById(tcp.ThemeId).Title,
+                category = _categoryRepo.GetById(tcp.CategoryId).Title
+            });
+        }
     }
 }
