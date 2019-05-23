@@ -45,5 +45,29 @@ namespace Forum.Web.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreatePost(PostsIndexVm model)
+        {
+            if (model.Content != "")
+            {
+                Post post = new Post
+                {
+                    Title = model.Title,
+                    Content = model.Content,
+                    DateTime = DateTime.Now,
+                    Id = model.CategoryId
+                };
+
+                _postRepo.Add(post);
+            }
+
+            return RedirectToAction("Index", new
+            {
+                theme = model.ActiveTheme,
+                category = model.ActiveCategory,
+            });
+        }
     }
 }
