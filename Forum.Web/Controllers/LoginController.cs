@@ -19,6 +19,13 @@ namespace Forum.Web.Controllers
             _context = context;
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Login(LoginViewModel loginViewModel)
         {
             return View(loginViewModel);
