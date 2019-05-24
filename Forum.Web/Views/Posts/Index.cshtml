@@ -52,8 +52,9 @@
                     @if (Model.IsLoggedIn == true && post.User?.Id == Model.UserId)
                     {
                         <a asp-action="Edit" asp-route-id="@post.Id" class="btn btn-secondary">Edit</a>
-                        <button type="button" class="btn btn-secondary">Remove</button>
+
                     }
+                    <a asp-action="Delete" asp-route-id="@post.Id" class="btn btn-secondary">Delete</a>
                 </span>
             </div>
         </li>

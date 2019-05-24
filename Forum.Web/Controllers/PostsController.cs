@@ -20,16 +20,19 @@ namespace Forum.Web.Controllers
         private readonly IRepository<Theme> _themeRepo;
         private readonly IRepository<Category> _categoryRepo;
         private readonly IRepository<Post> _postRepo;
+        private readonly IRepository<Comment> _commentRepo;
         private readonly IRepository<User> _userRepo;
 
         public PostsController (IRepository<Theme> themeRepo, 
             IRepository<Category> categoryRepo,
             IRepository<Post> postRepo,
+            IRepository<Comment> commentRepo,
             IRepository<User> userRepo)
         {
             _themeRepo = themeRepo;
             _categoryRepo = categoryRepo;
             _postRepo = postRepo;
+            _commentRepo = commentRepo;
             _userRepo = userRepo;
         }
 
@@ -129,5 +132,22 @@ namespace Forum.Web.Controllers
                 category = _categoryRepo.GetById(tcp.CategoryId).Title
             });
         }
+
+        public IActionResult Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var post = _postRepo.GetById(Guid.Parse(id));
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return View(post);
+        }
+
     }
 }
