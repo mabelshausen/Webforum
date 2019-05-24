@@ -80,7 +80,8 @@ namespace Forum.Web.Controllers
             string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
             var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
 
-            if (model.Content != "")
+            if (model.Content != null && model.Content.Replace(" ", "") != "" &&
+                model.Title != null && model.Title.Replace(" ", "") != "")
             {
                 Post post = new Post
                 {
