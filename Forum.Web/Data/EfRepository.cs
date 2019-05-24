@@ -36,12 +36,20 @@ namespace Forum.Web.Data
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _fc.Set<T>().Update(entity);
+            _fc.SaveChanges();
         }
 
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            _fc.Set<T>().Remove(entity);
+            _fc.SaveChanges();
+        }
+
+        public void DeleteRange(IQueryable<T> query)
+        {
+            _fc.Set<T>().RemoveRange(query);
+            _fc.SaveChanges();
         }
     }
 }
