@@ -46,7 +46,13 @@ namespace Forum.Web.Controllers
                 else
                 {
                     TempData[TemporaryMessage.temporaryMessage] = $@"You have been successfully logged in as {loginViewModel.Username}. ";
-                    UserState userState = new UserState { Username = user.Username, IsLoggedIn = true, IsAdmin = false };
+                    UserState userState = new UserState
+                    {
+                        UserId = user.Id,
+                        Username = user.Username,
+                        IsLoggedIn = true,
+                        IsAdmin = false
+                    };
                     HttpContext.Session.SetString(Constants.UserStatekey, JsonConvert.SerializeObject(userState));
                     return new RedirectToActionResult("Index", "Home", null);
                 }
@@ -60,7 +66,7 @@ namespace Forum.Web.Controllers
 
         public IActionResult Logout()
         {
-            UserState userState = new UserState { Username = null, IsLoggedIn = false, IsAdmin = false };
+            UserState userState = new UserState { UserId = Guid.Empty, Username = null, IsLoggedIn = false, IsAdmin = false };
             HttpContext.Session.SetString(Constants.UserStatekey, JsonConvert.SerializeObject(userState));
             return new RedirectToActionResult("Login", "Login", null);
         }
