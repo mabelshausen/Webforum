@@ -149,5 +149,27 @@ namespace Forum.Web.Controllers
             return View(post);
         }
 
+        public IActionResult DeletePost(Post post)
+        {
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            var commentsToDelete = _commentRepo.GetAll().Where(c => c.Post.Id == post.Id);
+            var postToDelete = _postRepo.GetById(post.Id);
+
+            _commentRepo.DeleteRange(commentsToDelete);
+            _postRepo.Delete(postToDelete);
+
+            string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
+            var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
+
+            return RedirectToAction("Index", new
+            {
+                theme = _themeRepo.GetById(tcp.ThemeId).Title,
+                category = _categoryRepo.GetById(tcp.CategoryId).Title
+            });
+        }
     }
 }
