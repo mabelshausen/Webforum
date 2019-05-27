@@ -3,10 +3,16 @@
     ViewData["Title"] = "Index";
 }
 
+<nav>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="/@Model.Theme.Title">@Model.Theme.Title</a></li>
+        <li class="breadcrumb-item active">@Model.Category.Title</li>
+    </ol>
+</nav>
+
 <h2>@Model.Category.Title</h2>
 <p>@Model.Category.Description</p>
-
-
 
 @if (Model.IsLoggedIn == true)
 {
