@@ -18,11 +18,17 @@ namespace Forum.Web.Data
         public T GetById(Guid id)
         {
             return _fc.Set<T>()
-                .Where(e => e.Id == id)
+                .Where(e => e.Id == id && !e.IsDeleted)
                 .First();
         }
 
         public IQueryable<T> GetAll()
+        {
+            return _fc.Set<T>()
+                .Where(e => !e.IsDeleted);
+        }
+
+        public IQueryable<T> GetAllWithDeleted()
         {
             return _fc.Set<T>();
         }
@@ -42,8 +48,8 @@ namespace Forum.Web.Data
 
         public void Delete(T entity)
         {
-            _fc.Set<T>().Remove(entity);
-            _fc.SaveChanges();
+            entity.IsDeleted = true;
+            Update(entity);
         }
 
         public void DeleteRange(IQueryable<T> query)

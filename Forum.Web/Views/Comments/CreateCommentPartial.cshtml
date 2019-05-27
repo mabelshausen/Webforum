@@ -1,0 +1,8 @@
+﻿@model Forum.Web.Entities.Comment
+
+<form asp-controller="Comments" asp-action="CreateComment" method="post" class="mb-3">
+    <div class="form-group">
+        <textarea asp-for="Content" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Post</button>
+</form>

@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
-
 namespace Forum.Web.Controllers
 {
     using Forum.Web.Constants;
@@ -54,7 +53,7 @@ namespace Forum.Web.Controllers
                 .Include(p => p.User)
                 .OrderByDescending(p => p.DateTime)
                 .ToList();
-
+            
             string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
             var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
             model.IsLoggedIn = userState.IsLoggedIn;

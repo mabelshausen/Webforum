@@ -46,8 +46,7 @@ namespace Forum.Web.Controllers
                 else
                 {
                     TempData[TemporaryMessage.temporaryMessage] = $@"You have been successfully logged in as {loginViewModel.Username}. ";
-                    UserState userState = new UserState
-                    {
+                    UserState userState = new UserState { 
                         UserId = user.Id,
                         Username = user.Username,
                         IsLoggedIn = true,
