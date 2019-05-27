@@ -32,27 +32,27 @@
 <ul class="list-group">
     @foreach (var com in Model.Comments)
     {
-    <li class="list-group-item flex-column">
-        <span class="font-weight-bold">@(com.User?.Username ?? "[deleted]")</span>
-        <div class="d-flex justify-content-between">
-            @if (com.IsDeleted)
-            {
-                <span>[deleted]</span>
-            }
-            else
-            {
-                <span>@Html.Raw(com.Content.Replace(Environment.NewLine, "<br/>"))</span>
-            }
+        <li class="list-group-item flex-column">
+            <span class="font-weight-bold">@(com.User?.Username ?? "[deleted]")</span>
+            <div class="d-flex justify-content-between">
+                @if (com.IsDeleted)
+                {
+                    <span>[deleted]</span>
+                }
+                else
+                {
+                    <span>@Html.Raw(com.Content.Replace(Environment.NewLine, "<br/>"))</span>
+                }
                 <span class="col-3 text-right">
-                    <span class="text-muted">@com.DateTime.ToString("HH:mm, dd MMMM yyyy")</span><br/>
+                    <span class="text-muted">@com.DateTime.ToString("HH:mm, dd MMMM yyyy")</span><br />
                     @if (Model.IsLoggedIn && com.User?.Id == Model.UserId && !com.IsDeleted)
                     {
                         <a asp-action="Edit" asp-route-id="@com.Id" class="btn btn-secondary">Edit</a>
                         <a asp-action="Delete" asp-route-id="@com.Id" class="btn btn-secondary">Delete</a>
                     }
                 </span>
-        </div>
-    </li>
+            </div>
+        </li>
     }
 </ul>
 
