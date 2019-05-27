@@ -47,7 +47,7 @@
                     <span>@Html.Raw(post.Content.Replace(Environment.NewLine, "<br/>"))</span>
                 </a>
                 <span class="text-muted col-3 text-right">
-                    Created by @post.User.Username<br />
+                    Created by @(post.User?.Username ?? "[deleted]")<br />
                     @post.DateTime.ToString("HH:mm, dd MMMM yyyy")<br />
                     @if (Model.IsLoggedIn == true && post.User?.Id == Model.UserId)
                     {
