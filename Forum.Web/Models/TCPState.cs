@@ -5,10 +5,7 @@ using System.Threading.Tasks;
 
 namespace Forum.Web.Models
 {
-<<<<<<< HEAD
-=======
     // TCP stands for Theme, Category and Post.
->>>>>>> master
     public class TCPState
     {
         public Guid ThemeId { get; set; }
