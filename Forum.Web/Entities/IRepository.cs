@@ -11,6 +11,8 @@ namespace Forum.Web.Entities
 
         IQueryable<T> GetAll();
 
+        IQueryable<T> GetAllWithDeleted();
+
         T Add(T entity);
 
         void Update(T entity);

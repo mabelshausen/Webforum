@@ -45,6 +45,8 @@ namespace Forum.Web
             services.AddTransient<IRepository<Post>, EfRepository<Post>>();
             services.AddTransient<IRepository<Comment>, EfRepository<Comment>>();
 
+            services.AddSession();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -84,6 +86,10 @@ namespace Forum.Web
                     name: "default",
                     template: "{theme}/{category}/{postid}",
                     defaults: new { controller = "Comments", action = "Index" });
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Comments}/{action=Edit}/{id}"
+                    );
             });
         }
     }
