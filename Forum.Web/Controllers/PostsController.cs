@@ -19,19 +19,16 @@ namespace Forum.Web.Controllers
         private readonly IRepository<Theme> _themeRepo;
         private readonly IRepository<Category> _categoryRepo;
         private readonly IRepository<Post> _postRepo;
-        private readonly IRepository<Comment> _commentRepo;
         private readonly IRepository<User> _userRepo;
 
         public PostsController (IRepository<Theme> themeRepo, 
             IRepository<Category> categoryRepo,
             IRepository<Post> postRepo,
-            IRepository<Comment> commentRepo,
             IRepository<User> userRepo)
         {
             _themeRepo = themeRepo;
             _categoryRepo = categoryRepo;
             _postRepo = postRepo;
-            _commentRepo = commentRepo;
             _userRepo = userRepo;
         }
 
@@ -155,11 +152,9 @@ namespace Forum.Web.Controllers
             {
                 return NotFound();
             }
-
-            var commentsToDelete = _commentRepo.GetAll().Where(c => c.Post.Id == post.Id);
+            
             var postToDelete = _postRepo.GetById(post.Id);
-
-            _commentRepo.DeleteRange(commentsToDelete);
+            
             _postRepo.Delete(postToDelete);
 
             string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
