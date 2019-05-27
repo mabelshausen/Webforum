@@ -40,7 +40,7 @@
 <ul class="list-group">
     @foreach (var post in Model.PostsByCategory)
     {
-        <li class="flex-column list-group-item">
+        <li class="flex-column list-group-item list-group-item-action">
             <div class="d-flex justify-content-between">
                 <a href="/@Model.Theme.Title/@Model.Category.Title/@post.Id" class="list-group-item-action">
                     <h5>@post.Title</h5>
