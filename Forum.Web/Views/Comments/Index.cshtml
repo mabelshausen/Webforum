@@ -35,13 +35,15 @@
             {
                 <span>@Html.Raw(com.Content.Replace(Environment.NewLine, "<br/>"))</span>
             }
-            <span class="text-muted">@com.DateTime.ToString("HH:mm, dd MMMM yyyy")</span>
+                <span class="col-3 text-right">
+                    <span class="text-muted">@com.DateTime.ToString("HH:mm, dd MMMM yyyy")</span><br/>
+                    @if (Model.IsLoggedIn && com.User?.Id == Model.UserId && !com.IsDeleted)
+                    {
+                        <a asp-action="Edit" asp-route-id="@com.Id" class="btn btn-secondary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@com.Id" class="btn btn-secondary">Delete</a>
+                    }
+                </span>
         </div>
-        @if (Model.IsLoggedIn && com.User?.Id == Model.UserId && !com.IsDeleted)
-        {
-            <a asp-action="Edit" asp-route-id="@com.Id">Edit</a>
-            <a asp-action="Delete" asp-route-id="@com.Id">Delete</a>
-        }
     </li>
     }
 </ul>
