@@ -13,5 +13,13 @@ namespace Forum.Web.ViewModels
         public Category Category { get; set; }
 
         public IEnumerable<Post> PostsByCategory { get; set; }
+
+        public string Title { get; set; }
+
+        public string Content { get; set; }
+
+        public bool IsLoggedIn { get; set; }
+
+        public Guid UserId { get; set; }
     }
 }

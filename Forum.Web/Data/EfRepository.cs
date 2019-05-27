@@ -51,5 +51,11 @@ namespace Forum.Web.Data
             entity.IsDeleted = true;
             Update(entity);
         }
+
+        public void DeleteRange(IQueryable<T> query)
+        {
+            _fc.Set<T>().RemoveRange(query);
+            _fc.SaveChanges();
+        }
     }
 }

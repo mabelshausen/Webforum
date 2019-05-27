@@ -18,5 +18,7 @@ namespace Forum.Web.Entities
         void Update(T entity);
 
         void Delete(T entity);
+
+        void DeleteRange(IQueryable<T> query);
     }
 }
