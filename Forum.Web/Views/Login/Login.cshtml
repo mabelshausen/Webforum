@@ -6,19 +6,19 @@
 
 <h1>Login</h1>
 
-<form asp-controller="Login" asp-action="Login" method="post">
+<form asp-controller="Login" asp-action="Login" method="post" class="col-md-4 mb-3">
 
-    <div>
-        <label asp-for="Username"></label>
-        <input asp-for="Username" />
-        <span asp-validation-for="Username"></span>
+    <div class="form-group">
+        <label asp-for="Username" class="control-label"></label>
+        <input asp-for="Username" class="form-control"/>
+        <span asp-validation-for="Username" class="text-danger"></span>
     </div>
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
+    <div class="form-group">
+        <label asp-for="Password" class="control-label"></label>
+        <input asp-for="Password" class="form-control"/>
+        <span asp-validation-for="Password" class="text-danger"></span>
     </div>
-    <input type="submit" value="Log in"/>
+    <input type="submit" value="Log in" class="btn btn-secondary"/>
 </form>
 
 <a asp-controller="Login" asp-action="Register">Don't have an account yet? Click here to create one! </a>
