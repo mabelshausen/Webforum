@@ -34,21 +34,24 @@ namespace Forum.Web.Data
                     Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                     ThemeId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                     Title = "Star Wars",
-                    Description = "Put an interesting description here."
+                    Description = "Put an interesting description here.",
+                    IsDeleted = false
                 },
                 new
                 {
                     Id = Guid.Parse("22222222-2222-2222-2222-222222222222"),
                     ThemeId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                     Title = "Avengers",
-                    Description = "Put an interesting description here."
+                    Description = "Put an interesting description here.",
+                    IsDeleted = false
                 },
                 new
                 {
                     Id = Guid.Parse("33333333-3333-3333-3333-333333333333"),
                     ThemeId = Guid.Parse("22222222-2222-2222-2222-222222222222"),
                     Title = "Skyrim",
-                    Description = "Put an interesting description here."
+                    Description = "Put an interesting description here.",
+                    IsDeleted = false
                 });
 
             modelBuilder.Entity<Post>().HasData(
@@ -59,7 +62,8 @@ namespace Forum.Web.Data
                     CategoryId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                     Title = "What is your favorite Star Wars movie?",
                     Content = "Mine is Attack of the Clones.",
-                    DateTime = DateTime.ParseExact("25/08/2017 14:32", "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)
+                    DateTime = DateTime.ParseExact("25/08/2017 14:32", "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),
+                    IsDeleted = false
                 },
                 new
                 {
@@ -68,7 +72,8 @@ namespace Forum.Web.Data
                     CategoryId = Guid.Parse("33333333-3333-3333-3333-333333333333"),
                     Title = "Tips for a beginner",
                     Content = "I just started the game and I'm completely lost. Does anyone have any tips for me?",
-                    DateTime = DateTime.ParseExact("11/12/2011 17:03", "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)
+                    DateTime = DateTime.ParseExact("11/12/2011 17:03", "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),
+                    IsDeleted = false
                 });
 
             modelBuilder.Entity<Comment>().HasData(
@@ -78,7 +83,8 @@ namespace Forum.Web.Data
                     PostId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                     UserId = Guid.Parse("22222222-2222-2222-2222-222222222222"),
                     Content = "No one's favorite Star Wars movie is Attack of the Clones.",
-                    DateTime = DateTime.ParseExact("25/08/2017 15:41", "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)
+                    DateTime = DateTime.ParseExact("25/08/2017 15:41", "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),
+                    IsDeleted = false
                 },
                 new
                 {
@@ -86,7 +92,8 @@ namespace Forum.Web.Data
                     PostId = Guid.Parse("22222222-2222-2222-2222-222222222222"),
                     UserId = Guid.Parse("33333333-3333-3333-3333-333333333333"),
                     Content = "Git gud.",
-                    DateTime = DateTime.ParseExact("12/12/2011 09:13", "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)
+                    DateTime = DateTime.ParseExact("12/12/2011 09:13", "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),
+                    IsDeleted = false
                 });
         }
     }

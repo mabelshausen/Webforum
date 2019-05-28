@@ -1,0 +1,31 @@
+﻿@model Forum.Web.Entities.Post
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h3>Edit Post</h3>
+
+<form asp-controller="Posts" asp-action="UpdatePost" method="post">
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" class="form-control" />
+        <label asp-for="Content">Comment</label>
+        <textarea asp-for="Content" class="form-control"></textarea>
+        <input asp-for="Id" type="hidden" />
+        <input asp-for="DateTime" type="hidden" />
+    </div>
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">Edit</button>
+    <a href='javascript:history.go(-1)' class="btn btn-secondary">Cancel</a>
+
+    <div class="modal" id="myModal" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Your post has been edited</h4>
+                    <button type="submit" class="btn btn-secondary">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

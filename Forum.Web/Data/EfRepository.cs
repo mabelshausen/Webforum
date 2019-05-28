@@ -18,11 +18,17 @@ namespace Forum.Web.Data
         public T GetById(Guid id)
         {
             return _fc.Set<T>()
-                .Where(e => e.Id == id)
+                .Where(e => e.Id == id && !e.IsDeleted)
                 .First();
         }
 
         public IQueryable<T> GetAll()
+        {
+            return _fc.Set<T>()
+                .Where(e => !e.IsDeleted);
+        }
+
+        public IQueryable<T> GetAllWithDeleted()
         {
             return _fc.Set<T>();
         }
@@ -36,12 +42,20 @@ namespace Forum.Web.Data
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _fc.Set<T>().Update(entity);
+            _fc.SaveChanges();
         }
 
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            entity.IsDeleted = true;
+            Update(entity);
+        }
+
+        public void DeleteRange(IQueryable<T> query)
+        {
+            _fc.Set<T>().RemoveRange(query);
+            _fc.SaveChanges();
         }
     }
 }

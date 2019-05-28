@@ -9,6 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forum.Web.Controllers
 {
+    using Forum.Web.Constants;
+    using Forum.Web.Models;
+    using Microsoft.AspNetCore.Http;
+    using Newtonsoft.Json;
+
     public class CategoriesController : Controller
     {
         private readonly IRepository<Theme> _themeRepo;
@@ -32,6 +37,13 @@ namespace Forum.Web.Controllers
             model.CategoriesBytheme = _categoryRepo.GetAll()
                 .Where(c => c.Theme == model.Theme)
                 .ToList();
+
+            TCPState tcp = new TCPState
+            {
+                ThemeId = model.Theme.Id
+            };
+
+            HttpContext.Session.SetString(Constants.TCPStateKey, JsonConvert.SerializeObject(tcp));
 
             return View(model);
         }
