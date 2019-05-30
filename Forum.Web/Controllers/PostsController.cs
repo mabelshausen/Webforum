@@ -50,6 +50,7 @@ namespace Forum.Web.Controllers
                 model.PostsByCategory = _postRepo.GetAll()
                     .Where(p => p.Category == model.Category)
                     .Include(p => p.User)
+                    .Include(p => p.LikedPosts)
                     .OrderByDescending(p => p.DateTime)
                     .ToList();
             }

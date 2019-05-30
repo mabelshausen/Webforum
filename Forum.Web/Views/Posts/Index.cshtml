@@ -60,6 +60,29 @@
                 <a href="/@Model.Theme.Title/@Model.Category.Title/@post.Id" class="list-group-item-action">
                     <h5>@post.Title</h5>
                     <span>@Html.Raw(post.Content.Replace(Environment.NewLine, "<br/>"))</span>
+                    <div class="font-italic">@(post.LikedPosts.Distinct().Count()) likes</div>
+                    <div class="font-italic">
+                        Liked by user?
+                        @{
+                            bool likedByUser = false;
+                            foreach (var lp in post.LikedPosts.Distinct())
+                            {
+                                if (lp.UserId == Model.UserId)
+                                {
+                                    likedByUser = true;
+                                    break;
+                                }
+                            }
+                            if (likedByUser)
+                            {
+                                <span>Yes!</span>
+                            }
+                            else
+                            {
+                                <span>No.</span>
+                            }
+                        }
+                    </div>
                 </a>
                 <span class="text-muted col-3 text-right">
                     Created by @(post.User?.Username ?? "[deleted]")<br />
