@@ -84,6 +84,10 @@ namespace Forum.Web
                     defaults: new { controller = "Posts", action = "Index" });
                 routes.MapRoute(
                     name: "default",
+                    template: "{controller=Profile}/{action=index}"
+                    );
+                routes.MapRoute(
+                    name: "default",
                     template: "{controller=Posts}/{action=Edit}/{id}"
                     );
                 routes.MapRoute(
