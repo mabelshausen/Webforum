@@ -35,5 +35,20 @@ namespace Forum.Web.Areas.Admin.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateTheme(ThemeViewModel themeViewModel)
+        {
+            var NewTheme = new Theme();
+
+            if (themeViewModel.Theme != null && themeViewModel.Description != null){
+                NewTheme.Title = themeViewModel.Theme;
+                NewTheme.Description = themeViewModel.Description;
+
+                _themeRepo.Add(NewTheme);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
