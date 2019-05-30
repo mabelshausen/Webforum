@@ -60,31 +60,29 @@
                 <a href="/@Model.Theme.Title/@Model.Category.Title/@post.Id" class="list-group-item-action">
                     <h5>@post.Title</h5>
                     <span>@Html.Raw(post.Content.Replace(Environment.NewLine, "<br/>"))</span>
-                    <div class="font-italic">@(post.LikedPosts.Distinct().Count()) likes</div>
-                    <div class="font-italic">
-                        Liked by user?
-                        @{
-                            bool likedByUser = false;
-                            foreach (var lp in post.LikedPosts.Distinct())
+                </a>
+                <div class="font-italic col-1">
+                    <span>@(post.LikedPosts.Distinct().Count()) likes</span>
+                    @{
+                        bool likedByUser = false;
+                        foreach (var lp in post.LikedPosts.Distinct())
+                        {
+                            if (lp.UserId == Model.UserId)
                             {
-                                if (lp.UserId == Model.UserId)
-                                {
-                                    likedByUser = true;
-                                    break;
-                                }
-                            }
-                            if (likedByUser)
-                            {
-                                <span>Yes!</span>
-                            }
-                            else
-                            {
-                                <span>No.</span>
+                                likedByUser = true;
+                                break;
                             }
                         }
-                        <a asp-action="Like" asp-route-id="@post.Id">Like</a>
-                    </div>
-                </a>
+                        if (likedByUser)
+                        {
+                            <span>You liked this post.</span>
+                        }
+                        else
+                        {
+                            <a asp-action="Like" asp-route-id="@post.Id">Like</a>
+                        }
+                    }
+                </div>
                 <span class="text-muted col-3 text-right">
                     Created by @(post.User?.Username ?? "[deleted]")<br />
                     @post.DateTime.ToString("HH:mm, dd MMMM yyyy")<br />
