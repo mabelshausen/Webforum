@@ -8,6 +8,7 @@ using Forum.Web.Models;
 using Forum.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Forum.Web.Areas.Admin.Models;
+using Forum.Web.Constants;
 
 namespace Forum.Web.Areas.Admin.Controllers
 {
@@ -40,13 +41,19 @@ namespace Forum.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateTheme(ThemeViewModel themeViewModel)
         {
-            var NewTheme = new Theme();
-
-            if (themeViewModel.Theme != null && themeViewModel.Description != null){
+            if (ModelState.IsValid){
+                var NewTheme = new Theme();
                 NewTheme.Title = themeViewModel.Theme;
                 NewTheme.Description = themeViewModel.Description;
+                var ThemeAlreadyExists = _themeRepo.GetAll().Where(t => t.Title == NewTheme.Title).FirstOrDefault();
 
-                _themeRepo.Add(NewTheme);
+                if (ThemeAlreadyExists == null){
+                    if (themeViewModel.Theme != null && themeViewModel.Description != null){
+                        _themeRepo.Add(NewTheme);
+                        TempData[TemporaryMessage.temporaryMessage] = $@"You have successfully created a new theme. ";  
+                    }
+                }
+                else { TempData[TemporaryMessage.temporaryMessage] = $@"This theme already exists "; }                    
             }
             return RedirectToAction("Index");
         }
