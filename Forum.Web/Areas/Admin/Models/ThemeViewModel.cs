@@ -13,7 +13,7 @@ namespace Forum.Web.Areas.Admin.Models
         public IEnumerable<Theme> Themes { get; set; }
 
         [Display(Name = "Enter the title of the theme you want to add")]
-        public Theme Theme { get; set; }
+        public string Theme { get; set; }
 
         [Display(Name = "Enter the description of the theme you want to add")]
         public string Description { get; set; }
