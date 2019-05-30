@@ -232,5 +232,44 @@ namespace Forum.Web.Controllers
                 category = _categoryRepo.GetById(tcp.CategoryId).Title
             });
         }
+
+        public IActionResult Unlike(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var post = _postRepo.GetAll()
+                .Where(p => p.Id == Guid.Parse(id))
+                .Include(p => p.LikedPosts)
+                .First();
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
+            var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
+            string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
+            var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
+
+            foreach (var lp in post.LikedPosts)
+            {
+                if (lp.UserId == userState.UserId)
+                {
+                    post.LikedPosts.Remove(lp);
+                    break;
+                }
+            }
+
+            _postRepo.Update(post);
+            return RedirectToAction("Index", new
+            {
+                theme = _themeRepo.GetById(tcp.ThemeId).Title,
+                category = _categoryRepo.GetById(tcp.CategoryId).Title
+            });
+        }
     }
 }

@@ -75,7 +75,7 @@
                         }
                         if (likedByUser)
                         {
-                            <span>You liked this post.</span>
+                            <a asp-action="Unlike" asp-route-id="@post.Id">Unlike</a>
                         }
                         else
                         {
