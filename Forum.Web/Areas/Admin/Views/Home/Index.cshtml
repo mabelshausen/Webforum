@@ -1,4 +1,4 @@
-﻿@model Forum.Web.ViewModels.HomeIndexVm
+﻿@model Forum.Web.Areas.Admin.Models.ThemeViewModel
 @{
     ViewData["Title"] = "Admin Home";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -6,11 +6,22 @@
 
 <h2>Themes</h2>
 
+<form asp-controller="Home" asp-action="CreateTheme" method="post">
+    <div>
+        <label asp-for="Theme"></label>
+        <input asp-for="Theme" />
+        <br />
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description"></textarea>
+    </div>
+    <input type="submit" value="Create theme" />
+</form>
+
 <ul class="list-group">
     @foreach (var theme in Model.Themes)
     {
         <li>
-            <a href="/Admin/@theme.Title" class="list-group-item list-group-item-action">
+            <a href="/@theme.Title" class="list-group-item list-group-item-action">
                 <h5>@theme.Title</h5>
             </a>
         </li>
