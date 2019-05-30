@@ -195,7 +195,7 @@ namespace Forum.Web.Controllers
             });
         }
 
-        public IActionResult Like(string id)
+        public IActionResult Like(string id, bool like)
         {
             if (id == null)
             {
@@ -217,50 +217,24 @@ namespace Forum.Web.Controllers
             string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
             var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
 
-            post.LikedPosts.Add(new LikedPosts
+            if (like)
             {
-                UserId = userState.UserId,
-                User = _userRepo.GetById(userState.UserId),
-                PostId = post.Id,
-                Post = post
-            });
-
-            _postRepo.Update(post);
-            return RedirectToAction("Index", new
-            {
-                theme = _themeRepo.GetById(tcp.ThemeId).Title,
-                category = _categoryRepo.GetById(tcp.CategoryId).Title
-            });
-        }
-
-        public IActionResult Unlike(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var post = _postRepo.GetAll()
-                .Where(p => p.Id == Guid.Parse(id))
-                .Include(p => p.LikedPosts)
-                .First();
-
-            if (post == null)
-            {
-                return NotFound();
-            }
-
-            string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
-            var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
-            string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
-            var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
-
-            foreach (var lp in post.LikedPosts)
-            {
-                if (lp.UserId == userState.UserId)
+                post.LikedPosts.Add(new LikedPosts
                 {
-                    post.LikedPosts.Remove(lp);
-                    break;
+                    UserId = userState.UserId,
+                    User = _userRepo.GetById(userState.UserId),
+                    PostId = post.Id,
+                    Post = post
+                });
+            } else
+            {
+                foreach (var lp in post.LikedPosts)
+                {
+                    if (lp.UserId == userState.UserId)
+                    {
+                        post.LikedPosts.Remove(lp);
+                        break;
+                    }
                 }
             }
 

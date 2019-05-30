@@ -75,11 +75,11 @@
                         }
                         if (likedByUser)
                         {
-                            <a asp-action="Unlike" asp-route-id="@post.Id">Unlike</a>
+                            <a asp-action="Like" asp-route-id="@post.Id" asp-route-like="false">Unlike</a>
                         }
                         else
                         {
-                            <a asp-action="Like" asp-route-id="@post.Id">Like</a>
+                            <a asp-action="Like" asp-route-id="@post.Id" asp-route-like="true">Like</a>
                         }
                     }
                 </div>
