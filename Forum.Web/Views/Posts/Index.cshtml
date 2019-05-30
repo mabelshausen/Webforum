@@ -43,6 +43,15 @@
     </form>
 }
 
+<form asp-controller="Posts" asp-action="SearchPost" method="post">
+    <div class="row mb-3">
+        <div class="col-5">
+            <input asp-for="SearchString" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-secondary col-1">Search</button>
+    </div>
+</form>
+
 <ul class="list-group">
     @foreach (var post in Model.PostsByCategory)
     {
