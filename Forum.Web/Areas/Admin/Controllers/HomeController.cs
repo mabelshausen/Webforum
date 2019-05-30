@@ -7,6 +7,7 @@ using Forum.Web.Entities;
 using Forum.Web.Models;
 using Forum.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Forum.Web.Areas.Admin.Models;
 
 namespace Forum.Web.Areas.Admin.Controllers
 {
@@ -22,7 +23,7 @@ namespace Forum.Web.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var model = new HomeIndexVm();
+            var model = new ThemeViewModel();
 
             model.Themes = _themeRepo.GetAll();
 
