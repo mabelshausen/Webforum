@@ -73,13 +73,16 @@
                                 break;
                             }
                         }
-                        if (likedByUser)
+                        if (Model.IsLoggedIn)
                         {
-                            <a asp-action="Like" asp-route-id="@post.Id" asp-route-like="false" class="fas fa-thumbs-up"></a>
-                        }
-                        else
-                        {
-                            <a asp-action="Like" asp-route-id="@post.Id" asp-route-like="true"><i class="far fa-thumbs-up"></i></a>
+                            if (likedByUser)
+                            {
+                                <a asp-action="Like" asp-route-id="@post.Id" asp-route-like="false" class="fas fa-thumbs-up"></a>
+                            }
+                            else
+                            {
+                                <a asp-action="Like" asp-route-id="@post.Id" asp-route-like="true"><i class="far fa-thumbs-up"></i></a>
+                            }
                         }
                     }
                 </div>
