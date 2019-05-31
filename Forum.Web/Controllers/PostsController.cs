@@ -32,7 +32,7 @@ namespace Forum.Web.Controllers
             _userRepo = userRepo;
         }
 
-        public IActionResult Index(string theme, string category)
+        public IActionResult Index(string theme, string category, string search = "")
         {
             var model = new PostsIndexVm();
 
@@ -45,11 +45,24 @@ namespace Forum.Web.Controllers
                 .Where(c => c.Title.ToLower() == category.ToLower())
                 .First();
 
-            model.PostsByCategory = _postRepo.GetAll()
-                .Where(p => p.Category == model.Category)
-                .Include(p => p.User)
-                .OrderByDescending(p => p.DateTime)
-                .ToList();
+            if (search == "")
+            {
+                model.PostsByCategory = _postRepo.GetAll()
+                    .Where(p => p.Category == model.Category)
+                    .Include(p => p.User)
+                    .OrderByDescending(p => p.DateTime)
+                    .ToList();
+            }
+            else
+            {
+                model.PostsByCategory = _postRepo.GetAll()
+                    .Where(p => p.Category == model.Category)
+                    .Where(p => p.Title.ToLower().Contains(search.ToLower()))
+                    .Include(p => p.User)
+                    .OrderByDescending(p => p.DateTime)
+                    .ToList();
+            }
+            
             
             string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
             var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
@@ -164,6 +177,20 @@ namespace Forum.Web.Controllers
             {
                 theme = _themeRepo.GetById(tcp.ThemeId).Title,
                 category = _categoryRepo.GetById(tcp.CategoryId).Title
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Search(PostsIndexVm vm)
+        {
+            string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
+            var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
+
+            return RedirectToAction("Index", new {
+                theme = _themeRepo.GetById(tcp.ThemeId).Title,
+                category = _categoryRepo.GetById(tcp.CategoryId).Title,
+                search = vm.SearchString
             });
         }
     }

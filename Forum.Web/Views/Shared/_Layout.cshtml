@@ -21,39 +21,37 @@
 </head>
 <body>
     <header class="border-bottom">
-        <h1 class="text-center"><a asp-controller="Home" asp-action="Index" class="text-dark">Forum</a></h1>
+        <nav class="nav navbar">
+            <h1><a asp-controller="Home" asp-action="Index" class="text-dark">Forum</a></h1>
 
-        @using Microsoft.AspNetCore.Http;
-        @using Forum.Web.Constants;
-        @using Newtonsoft.Json;
+            @{ var statekey = Context.Session.GetString(Constants.UserStatekey);}
 
-        @{ var statekey = Context.Session.GetString(Constants.UserStatekey);}
-
-        @if (statekey == null)
-        {
-            var us = new UserState
+            @if (statekey == null)
             {
-                IsLoggedIn = false
-            };
-            statekey = JsonConvert.SerializeObject(us);
-            Context.Session.SetString(Constants.UserStatekey, statekey);
-        }
+                var us = new UserState
+                {
+                    IsLoggedIn = false
+                };
+                statekey = JsonConvert.SerializeObject(us);
+                Context.Session.SetString(Constants.UserStatekey, statekey);
+            }
 
-        @{ var userstate = JsonConvert.DeserializeObject<UserState>(statekey);}
+            @{ var userstate = JsonConvert.DeserializeObject<UserState>(statekey);}
 
-        @if (userstate.IsLoggedIn)
-        {
-            <h3>
-                Logged in as @userstate.Username
-            </h3>
-            <h2><a asp-controller="Login" asp-action="Logout" style="float: right">Log out</a></h2>
-        }
+            @if (userstate.IsLoggedIn)
+            {
+                <div>
+                    Welcome, @(userstate.Username).
+                    <a asp-controller="Login" asp-action="Logout" class="btn btn-secondary">Logout</a>
+                </div>
 
-        else
-        {
-            <h2><a asp-controller="Login" asp-action="Login" style="float: right">Login/Register</a></h2>
-        }
+            }
 
+            else
+            {
+                <a asp-controller="Login" asp-action="Login" class="btn btn-secondary">Login/Register</a>
+            }
+        </nav>
     </header>
 
     <nav class="navbar navbar-expand-md navbar-light bg-light fixed-left">
@@ -81,7 +79,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2019 - Forum.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2019 - Forum.Web
         </div>
     </footer>
 

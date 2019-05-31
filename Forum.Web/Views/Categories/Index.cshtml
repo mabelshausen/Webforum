@@ -3,6 +3,13 @@
     ViewData["Title"] = "Index";
 }
 
+<nav>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+        <li class="breadcrumb-item active">@Model.Theme.Title</li>
+    </ol>
+</nav>
+
 <h2>@Model.Theme.Title</h2>
 <p>@Model.Theme.Description</p>
 
