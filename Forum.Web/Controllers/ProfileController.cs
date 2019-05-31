@@ -87,6 +87,43 @@ namespace Forum.Web.Controllers
             }
         }
 
-        
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChangePassword(ChangePasswordVm model)
+        {
+            string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
+            var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
+            var user = _userRepo.GetById(userState.UserId);
+            
+
+            if (ModelState.IsValid)
+            {
+                var password = model.Password;
+                var hashedPassword = PasswordHasher.Hashing(password);
+
+                if (hashedPassword != user.Password)
+                {
+                    TempData[TemporaryMessage.temporaryMessage] = "Current password is wrong";
+                    return View(model);
+                }
+                else
+                {
+                    user.Password = PasswordHasher.Hashing(model.NewPassword);
+                    _userRepo.Update(user);
+
+                    TempData[TemporaryMessage.temporaryMessage] = "Password has been changed.";
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                return View(model);
+            }
+        }
     }
 }
