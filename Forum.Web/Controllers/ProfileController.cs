@@ -19,12 +19,15 @@ namespace Forum.Web.Controllers
     {
         private readonly IRepository<User> _userRepo;
         private readonly IRepository<Post> _postRepo;
+        private readonly IRepository<Comment> _commentRepo;
 
         public ProfileController(IRepository<User> userRepo,
-            IRepository<Post> postRepo)
+            IRepository<Post> postRepo,
+            IRepository<Comment> commentRepo)
         {
             _userRepo = userRepo;
             _postRepo = postRepo;
+            _commentRepo = commentRepo;
         }
 
         public IActionResult Index()
@@ -41,6 +44,14 @@ namespace Forum.Web.Controllers
 
             model.UserPosts = _postRepo.GetAll()
                 .Include(p => p.Category)
+                .ThenInclude(c => c.Theme)
+                .Where(p => p.User == User)
+                .OrderByDescending(p => p.DateTime)
+                .ToList();
+
+            model.UserComments = _commentRepo.GetAll()
+                .Include(c => c.Post)
+                .ThenInclude(p => p.Category)
                 .ThenInclude(c => c.Theme)
                 .Where(p => p.User == User)
                 .OrderByDescending(p => p.DateTime)

@@ -22,7 +22,6 @@
     @foreach (var post in Model.UserPosts)
     {
         <li>
-
             <div class="d-flex justify-content-between">
                 <a href="/@post.Category.Theme.Title/@post.Category.Title/@post.Id" class="list-group-item list-group-item-action flex-column ">
                     <h5>@post.Title</h5>
@@ -34,5 +33,36 @@
                 </span>
             </div>
         </li>
+    }
+</ul>
+
+<div class="d-flex justify-content-between">
+    <a href="#comments" class="list-group-item list-group-item-action flex-column" data-toggle="collapse" aria-expanded="false">
+        <h3>Comments</h3>
+    </a>
+</div>
+
+<ul class="list-group collapse" id="comments">
+    @foreach (var comment in Model.UserComments)
+    {
+    <li>
+        <div class="d-flex justify-content-between">
+            <a href="/@comment.Post.Category.Theme.Title/@comment.Post.Category.Title/@comment.Post.Id" class="list-group-item list-group-item-action flex-column ">
+
+                @if (comment.IsDeleted)
+                {
+                    <span>[deleted]</span>
+                }
+                else
+                {
+                    <span>@Html.Raw(comment.Content.Replace(Environment.NewLine, "<br/>"))</span>
+                }
+            </a>
+            <span class="text-muted col-3">
+                Created on<br />
+                @comment.DateTime.ToString("HH:mm, dd MMMM yyyy")<br />
+            </span>
+        </div>
+    </li>
     }
 </ul>

@@ -14,5 +14,7 @@ namespace Forum.Web.ViewModels
         public string Username { get; set; }
 
         public IEnumerable<Post> UserPosts { get; set; }
+
+        public IEnumerable<Comment> UserComments { get; set; }
     }
 }
