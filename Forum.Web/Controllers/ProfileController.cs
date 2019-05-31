@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Forum.Web.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace Forum.Web.Controllers
 {
@@ -17,10 +18,13 @@ namespace Forum.Web.Controllers
     public class ProfileController : Controller
     {
         private readonly IRepository<User> _userRepo;
+        private readonly IRepository<Post> _postRepo;
 
-        public ProfileController(IRepository<User> userRepo)
+        public ProfileController(IRepository<User> userRepo,
+            IRepository<Post> postRepo)
         {
             _userRepo = userRepo;
+            _postRepo = postRepo;
         }
 
         public IActionResult Index()
@@ -34,6 +38,13 @@ namespace Forum.Web.Controllers
             var User = _userRepo.GetAll()
                 .Where(u => u.Id == model.UserId)
                 .First();
+
+            model.UserPosts = _postRepo.GetAll()
+                .Include(p => p.Category)
+                .ThenInclude(c => c.Theme)
+                .Where(p => p.User == User)
+                .OrderByDescending(p => p.DateTime)
+                .ToList();
 
             model.Username = User.Username;
 
