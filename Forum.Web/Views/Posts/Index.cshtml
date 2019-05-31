@@ -61,6 +61,31 @@
                     <h5>@post.Title</h5>
                     <span>@Html.Raw(post.Content.Replace(Environment.NewLine, "<br/>"))</span>
                 </a>
+                <div class="font-italic col-1">
+                    <span>@(post.LikedPosts.Distinct().Count()) @((post.LikedPosts.Distinct().Count() == 1) ? "like" : "likes")</span>
+                    @{
+                        bool likedByUser = false;
+                        foreach (var lp in post.LikedPosts.Distinct())
+                        {
+                            if (lp.UserId == Model.UserId)
+                            {
+                                likedByUser = true;
+                                break;
+                            }
+                        }
+                        if (Model.IsLoggedIn)
+                        {
+                            if (likedByUser)
+                            {
+                                <a asp-action="Like" asp-route-id="@post.Id" asp-route-like="false" class="fas fa-thumbs-up"></a>
+                            }
+                            else
+                            {
+                                <a asp-action="Like" asp-route-id="@post.Id" asp-route-like="true"><i class="far fa-thumbs-up"></i></a>
+                            }
+                        }
+                    }
+                </div>
                 <span class="text-muted col-3 text-right">
                     Created by @(post.User?.Username ?? "[deleted]")<br />
                     @post.DateTime.ToString("HH:mm, dd MMMM yyyy")<br />

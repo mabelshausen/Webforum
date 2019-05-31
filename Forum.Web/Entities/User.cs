@@ -16,5 +16,9 @@ namespace Forum.Web.Entities
         [Required]
         [MinLength(6)]
         public string Password { get; set; }
+
+        public ICollection<LikedPosts> LikedPosts { get; set; }
+
+        public ICollection<LikedComments> LikedComments { get; set; }
     }
 }

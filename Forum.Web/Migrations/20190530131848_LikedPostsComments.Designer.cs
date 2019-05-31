@@ -4,14 +4,16 @@ using Forum.Web;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Forum.Web.Migrations
 {
     [DbContext(typeof(ForumContext))]
-    partial class ForumContextModelSnapshot : ModelSnapshot
+    [Migration("20190530131848_LikedPostsComments")]
+    partial class LikedPostsComments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,18 +137,6 @@ namespace Forum.Web.Migrations
                     b.HasIndex("PostId");
 
                     b.ToTable("LikedPosts");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            PostId = new Guid("11111111-1111-1111-1111-111111111111")
-                        },
-                        new
-                        {
-                            UserId = new Guid("22222222-2222-2222-2222-222222222222"),
-                            PostId = new Guid("11111111-1111-1111-1111-111111111111")
-                        });
                 });
 
             modelBuilder.Entity("Forum.Web.Entities.Post", b =>

@@ -50,6 +50,7 @@ namespace Forum.Web.Controllers
                 model.PostsByCategory = _postRepo.GetAll()
                     .Where(p => p.Category == model.Category)
                     .Include(p => p.User)
+                    .Include(p => p.LikedPosts)
                     .OrderByDescending(p => p.DateTime)
                     .ToList();
             }
@@ -191,6 +192,57 @@ namespace Forum.Web.Controllers
                 theme = _themeRepo.GetById(tcp.ThemeId).Title,
                 category = _categoryRepo.GetById(tcp.CategoryId).Title,
                 search = vm.SearchString
+            });
+        }
+
+        public IActionResult Like(string id, bool like)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var post = _postRepo.GetAll()
+                .Where(p => p.Id == Guid.Parse(id))
+                .Include(p => p.LikedPosts)
+                .First();
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
+            var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
+            string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
+            var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
+
+            if (like)
+            {
+                post.LikedPosts.Add(new LikedPosts
+                {
+                    UserId = userState.UserId,
+                    User = _userRepo.GetById(userState.UserId),
+                    PostId = post.Id,
+                    Post = post
+                });
+            } else
+            {
+                foreach (var lp in post.LikedPosts)
+                {
+                    if (lp.UserId == userState.UserId)
+                    {
+                        post.LikedPosts.Remove(lp);
+                        break;
+                    }
+                }
+            }
+
+            _postRepo.Update(post);
+            return RedirectToAction("Index", new
+            {
+                theme = _themeRepo.GetById(tcp.ThemeId).Title,
+                category = _categoryRepo.GetById(tcp.CategoryId).Title
             });
         }
     }
