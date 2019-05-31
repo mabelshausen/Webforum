@@ -113,6 +113,9 @@ namespace Forum.Web.Controllers
                     user.Username = model.Username;
                     _userRepo.Update(user);
 
+                    userState.Username = model.Username;
+                    HttpContext.Session.SetString(Constants.UserStatekey, JsonConvert.SerializeObject(userState));
+
                     TempData[TemporaryMessage.temporaryMessage] = "Username has been changed.";
                     return RedirectToAction("Index");
                 }
