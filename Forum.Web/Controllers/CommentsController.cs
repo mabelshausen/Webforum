@@ -57,6 +57,7 @@ namespace Forum.Web.Controllers
             model.Comments = _commentRepo.GetAllWithDeleted()
                 .Where(c => c.Post == model.Post)
                 .Include(c => c.User)
+                .Include(c => c.LikedComments)
                 .OrderBy(c => c.DateTime)
                 .ToList();
 
