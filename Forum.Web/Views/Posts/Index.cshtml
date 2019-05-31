@@ -62,7 +62,7 @@
                     <span>@Html.Raw(post.Content.Replace(Environment.NewLine, "<br/>"))</span>
                 </a>
                 <div class="font-italic col-1">
-                    <span>@(post.LikedPosts.Distinct().Count()) likes</span>
+                    <span>@(post.LikedPosts.Distinct().Count())</span>
                     @{
                         bool likedByUser = false;
                         foreach (var lp in post.LikedPosts.Distinct())
@@ -75,11 +75,11 @@
                         }
                         if (likedByUser)
                         {
-                            <a asp-action="Like" asp-route-id="@post.Id" asp-route-like="false">Unlike</a>
+                            <a asp-action="Like" asp-route-id="@post.Id" asp-route-like="false" class="fas fa-thumbs-up"></a>
                         }
                         else
                         {
-                            <a asp-action="Like" asp-route-id="@post.Id" asp-route-like="true">Like</a>
+                            <a asp-action="Like" asp-route-id="@post.Id" asp-route-like="true"><i class="far fa-thumbs-up"></i></a>
                         }
                     }
                 </div>
