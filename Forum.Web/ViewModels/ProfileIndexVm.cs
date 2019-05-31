@@ -18,5 +18,7 @@ namespace Forum.Web.ViewModels
         public IEnumerable<Comment> UserComments { get; set; }
 
         public Guid UserStateId { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

@@ -37,6 +37,7 @@ namespace Forum.Web.Controllers
             string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
             var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
             model.UserStateId = userState.UserId;
+            model.IsDeleted = false;
 
             if (Id == Guid.Empty)
             {
@@ -47,7 +48,13 @@ namespace Forum.Web.Controllers
 
             var User = _userRepo.GetAll()
                 .Where(u => u.Id == model.UserId)
-                .First();
+                .FirstOrDefault() ;
+
+            if (User == null)
+            {
+                model.IsDeleted = true;
+                return View(model);
+            }
 
             model.UserPosts = _postRepo.GetAll()
                 .Include(p => p.Category)
