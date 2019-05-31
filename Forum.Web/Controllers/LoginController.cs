@@ -38,7 +38,7 @@ namespace Forum.Web.Controllers
                 var hashedPassword = PasswordHasher.Hashing(password);
                 var user = (from l in _context.Users where l.Username == loginViewModel.Username && l.Password == hashedPassword select l).FirstOrDefault();
 
-                if (user is null)
+                if (user is null || user.IsDeleted == true)
                 {
                     TempData[TemporaryMessage.temporaryMessage] = "An error occured while attempting to log in. Did you fill everything in correctly? ";
                     return View(loginViewModel);
