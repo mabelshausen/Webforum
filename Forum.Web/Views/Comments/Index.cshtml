@@ -46,7 +46,7 @@
                     }
                 </div>
                 <div class="font-italic col-1">
-                    <span>@(com.LikedComments.Distinct().Count())</span>
+                    <span>@(com.LikedComments.Distinct().Count()) @((com.LikedComments.Distinct().Count() == 1) ? "like" : "likes")</span>
                     @{
                         bool likedByUser = false;
                         foreach (var lp in com.LikedComments.Distinct())

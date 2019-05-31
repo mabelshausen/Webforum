@@ -62,7 +62,7 @@
                     <span>@Html.Raw(post.Content.Replace(Environment.NewLine, "<br/>"))</span>
                 </a>
                 <div class="font-italic col-1">
-                    <span>@(post.LikedPosts.Distinct().Count())</span>
+                    <span>@(post.LikedPosts.Distinct().Count()) @((post.LikedPosts.Distinct().Count() == 1) ? "like" : "likes")</span>
                     @{
                         bool likedByUser = false;
                         foreach (var lp in post.LikedPosts.Distinct())
