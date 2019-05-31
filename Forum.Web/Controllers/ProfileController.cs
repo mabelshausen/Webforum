@@ -36,9 +36,58 @@ namespace Forum.Web.Controllers
                 .First();
 
             model.Username = User.Username;
+            model.Password = User.Password;
 
             return View(model);
         }
 
+        public IActionResult ChangeUsername()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChangeUsername(ProfileIndexVm model)
+        {
+            string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
+            var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
+            var user = _userRepo.GetById(userState.UserId);
+            User nameCheck = null;
+
+            try
+            {
+                nameCheck = _userRepo.GetAll()
+                .Where(u => u.Username == model.Username)
+                .First();
+            }
+            catch (Exception)
+            {
+                nameCheck = null;
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (nameCheck != null)
+                {
+                    TempData[TemporaryMessage.temporaryMessage] = "User already exists";
+                    return View(model);
+                }
+                else
+                {
+                    user.Username = model.Username;
+                    _userRepo.Update(user);
+
+                    TempData[TemporaryMessage.temporaryMessage] = "Username has been changed.";
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                return View(model);
+            }
+
+            
+        }
     }
 }
