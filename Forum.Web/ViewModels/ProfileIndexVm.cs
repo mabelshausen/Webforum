@@ -16,5 +16,7 @@ namespace Forum.Web.ViewModels
         public IEnumerable<Post> UserPosts { get; set; }
 
         public IEnumerable<Comment> UserComments { get; set; }
+
+        public Guid UserStateId { get; set; }
     }
 }

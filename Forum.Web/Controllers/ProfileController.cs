@@ -30,13 +30,20 @@ namespace Forum.Web.Controllers
             _commentRepo = commentRepo;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(Guid Id)
         {
             var model = new ProfileIndexVm();
 
             string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
             var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
-            model.UserId = userState.UserId;
+            model.UserStateId = userState.UserId;
+
+            if (Id == Guid.Empty)
+            {
+                Id = userState.UserId;
+            }
+
+            model.UserId = Id;
 
             var User = _userRepo.GetAll()
                 .Where(u => u.Id == model.UserId)
