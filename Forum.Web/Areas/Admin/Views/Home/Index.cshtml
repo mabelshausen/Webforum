@@ -29,7 +29,7 @@
         <select asp-for="CategoryTheme">
             @foreach (var theme in Model.Themes)
             {
-            <option>@theme.Title</option>
+            <option value="@theme.Id">@theme.Title</option>
             }
         </select>
         <br />

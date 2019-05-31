@@ -23,6 +23,5 @@ namespace Forum.Web.Areas.Admin.Models
 
         [Display(Name = "Select the theme of the category you want to add. ")]
         public string CategoryTheme { get; set; }
-
     }
 }

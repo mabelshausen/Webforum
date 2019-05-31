@@ -66,5 +66,24 @@ namespace Forum.Web.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateCategory(ThemeViewModel themeViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var NewCategory = new Category();
+                NewCategory.Title = themeViewModel.Category;
+
+                NewCategory.Theme = _themeRepo.GetById(Guid.Parse(themeViewModel.CategoryTheme));
+
+                NewCategory.Description = themeViewModel.Description;
+
+                _categoryRepo.Add(NewCategory);
+                
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
