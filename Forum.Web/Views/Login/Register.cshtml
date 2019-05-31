@@ -6,30 +6,30 @@
 
 <h1>Register</h1>
 
-<form asp-controller="Login" asp-action="Register" method="post">
+<form asp-controller="Login" asp-action="Register" method="post" class="col-md-4">
 
-    <div>
-        <label asp-for="Username"></label>
-        <input asp-for="Username" />
-        <span asp-validation-for="Username"></span>
+    <div class="form-group">
+        <label asp-for="Username" class="control-label"></label>
+        <input asp-for="Username" class="form-control"/>
+        <span asp-validation-for="Username" class="text-danger"></span>
     </div>
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
+    <div class="form-group">
+        <label asp-for="Password" class="control-label"></label>
+        <input asp-for="Password" class="form-control"/>
+        <span asp-validation-for="Password" class="text-danger"></span>
     </div>
-    <div>
-        <label asp-for="RepeatPassword"></label>
-        <input asp-for="RepeatPassword" />
-        <span asp-validation-for="RepeatPassword"></span>
+    <div class="form-group">
+        <label asp-for="RepeatPassword" class="control-label"></label>
+        <input asp-for="RepeatPassword" class="form-control"/>
+        <span asp-validation-for="RepeatPassword" class="text-danger"></span>
     </div>
-    <div>
-        <label asp-for="TermsOfService"></label>
+    <div class="form-group">
         <input asp-for="TermsOfService" />
-        <span asp-validation-for="TermsOfService"></span>
+        <label asp-for="TermsOfService" class="control-label"></label>
+        <span asp-validation-for="TermsOfService" class="text-danger"></span>
         <br />
-        <a asp-controller="Login" asp-action="TermsOfService">Click here to view our terms of service</a>
+        <a asp-controller="Login" asp-action="TermsOfService">Click here to view our terms of service.</a>
     </div>
-    <input type="submit" value="Register"/>
+    <input type="submit" value="Register" class="btn btn-secondary"/>
 </form>
 

@@ -95,6 +95,13 @@ namespace Forum.Web.Data
                     DateTime = DateTime.ParseExact("12/12/2011 09:13", "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),
                     IsDeleted = false
                 });
+
+            modelBuilder.Entity<LikedPosts>().HasData(
+                new LikedPosts { UserId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                    PostId = Guid.Parse("11111111-1111-1111-1111-111111111111") },
+                new LikedPosts { UserId = Guid.Parse("22222222-2222-2222-2222-222222222222"),
+                    PostId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                });
         }
     }
 }

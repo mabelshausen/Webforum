@@ -19,7 +19,7 @@ namespace Forum.Web.Data
         {
             return _fc.Set<T>()
                 .Where(e => e.Id == id && !e.IsDeleted)
-                .First();
+                .FirstOrDefault();
         }
 
         public IQueryable<T> GetAll()

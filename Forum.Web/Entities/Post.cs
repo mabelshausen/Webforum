@@ -20,5 +20,7 @@ namespace Forum.Web.Entities
         public string Content { get; set; }
 
         public DateTime DateTime { get; set; }
+
+        public ICollection<LikedPosts> LikedPosts { get; set; }
     }
 }

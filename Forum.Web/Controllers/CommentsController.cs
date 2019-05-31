@@ -57,6 +57,7 @@ namespace Forum.Web.Controllers
             model.Comments = _commentRepo.GetAllWithDeleted()
                 .Where(c => c.Post == model.Post)
                 .Include(c => c.User)
+                .Include(c => c.LikedComments)
                 .OrderBy(c => c.DateTime)
                 .ToList();
 
@@ -170,6 +171,59 @@ namespace Forum.Web.Controllers
             string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
             var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
 
+            return RedirectToAction("Index", new
+            {
+                theme = _themeRepo.GetById(tcp.ThemeId).Title,
+                category = _categoryRepo.GetById(tcp.CategoryId).Title,
+                postid = tcp.PostId
+            });
+        }
+
+        public IActionResult Like(string id, bool like)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var com = _commentRepo.GetAll()
+                .Where(c => c.Id == Guid.Parse(id))
+                .Include(c => c.LikedComments)
+                .First();
+
+            if (com == null)
+            {
+                return NotFound();
+            }
+
+            string sessionTCP = HttpContext.Session.GetString(Constants.TCPStateKey);
+            var tcp = JsonConvert.DeserializeObject<TCPState>(sessionTCP);
+            string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
+            var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
+
+            if (like)
+            {
+                com.LikedComments.Add(new LikedComments
+                {
+                    UserId = userState.UserId,
+                    User = _userRepo.GetById(userState.UserId),
+                    CommentId = com.Id,
+                    Comment = com
+                });
+            }
+            else
+            {
+                foreach (var lc in com.LikedComments)
+                {
+                    if (lc.UserId == userState.UserId)
+                    {
+                        com.LikedComments.Remove(lc);
+                        break;
+                    }
+                }
+            }
+
+            _commentRepo.Update(com);
             return RedirectToAction("Index", new
             {
                 theme = _themeRepo.GetById(tcp.ThemeId).Title,
