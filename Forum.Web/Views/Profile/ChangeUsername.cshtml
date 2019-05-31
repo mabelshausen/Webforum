@@ -1,0 +1,17 @@
+﻿@model Forum.Web.ViewModels.ProfileIndexVm
+@{
+    ViewData["Title"] = "ChangeUsername";
+}
+
+<h3>Change username</h3>
+
+<form asp-controller="Profile" asp-action="ChangeName" method="post">
+    <div class="form-group">
+        <label asp-for="Username">Name</label>
+        <input asp-for="Username" class="form-control" value="" />
+        <span asp-validation-for="Username"></span>
+    </div>
+    <button type="submit" class="btn btn-secondary">Edit</button>
+    <button type="button" class="btn btn-secondary" onclick="window.location='@Url.Action("Index", "Profile")'">Cancel</button>
+</form>
+
