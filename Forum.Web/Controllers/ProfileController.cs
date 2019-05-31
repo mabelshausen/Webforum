@@ -36,7 +36,6 @@ namespace Forum.Web.Controllers
                 .First();
 
             model.Username = User.Username;
-            model.Password = User.Password;
 
             return View(model);
         }
@@ -48,7 +47,7 @@ namespace Forum.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ChangeUsername(ProfileIndexVm model)
+        public IActionResult ChangeUsername(ChangeNameVm model)
         {
             string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
             var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
@@ -70,7 +69,7 @@ namespace Forum.Web.Controllers
             {
                 if (nameCheck != null)
                 {
-                    TempData[TemporaryMessage.temporaryMessage] = "User already exists";
+                    TempData[TemporaryMessage.temporaryMessage] = "There already exists a user with that username. Please enter a different username.";
                     return View(model);
                 }
                 else
@@ -86,8 +85,8 @@ namespace Forum.Web.Controllers
             {
                 return View(model);
             }
-
-            
         }
+
+        
     }
 }
