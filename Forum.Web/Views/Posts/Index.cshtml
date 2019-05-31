@@ -48,7 +48,8 @@
                     <span>@post.Content</span>
                 </a>
                 <span class="text-muted col-3">
-                    Created by @post.User.Username<br />
+                    
+                    Created by <a asp-controller="Profile" asp-action="Index" asp-route-id="@post.User.Id">@post.User.Username</a><br />
                     on @post.DateTime.ToString("HH:mm, dd MMMM yyyy")<br />
                     @if (Model.IsLoggedIn == true && post.User?.Id == Model.UserId)
                     {

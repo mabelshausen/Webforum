@@ -8,7 +8,7 @@
         <h2>@Model.Post.Title</h2>
     </div>
     <div class="card-body flex-column">
-        <span class="font-weight-bold">@(Model.Post.User?.Username ?? "[deleted]")</span>
+        <span class="font-weight-bold"><a asp-controller="Profile" asp-action="Index" asp-route-id="@Model.Post.User?.Id">@(Model.Post.User?.Username ?? "[deleted]")</a></span>
         <div class="d-flex justify-content-between">
             <span>@Model.Post.Content</span>
             <span class="text-muted">@Model.Post.DateTime.ToString("HH:mm, dd MMMM yyyy")</span>
@@ -25,7 +25,7 @@
     @foreach (var com in Model.Comments)
     {
     <li class="list-group-item flex-column">
-        <span class="font-weight-bold">@(com.User?.Username ?? "[deleted]")</span>
+        <span class="font-weight-bold"><a asp-controller="Profile" asp-action="Index" asp-route-id="@com.User?.Id">@(com.User?.Username ?? "[deleted]")</a></span>
         <div class="d-flex justify-content-between">
             @if (com.IsDeleted)
             {
