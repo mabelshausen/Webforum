@@ -3,54 +3,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>My profile @Model.Username</h2>
+<h2>@Model.Username</h2>
 
 <div class="d-flex ">
-    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">Change username</button>
-    <!--Modal-->
-    <form asp-controller="Profile" asp-action="ChangeUsername" method="post">
-        <div class="modal" id="myModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
 
-                    <div class="modal-header">
-                        <h4 class="modal-title">New Post</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
+    <a asp-action="ChangeUsername" class="btn btn-secondary">Change username</a><br />
 
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>Title</label>
-                            <input asp-for="Username" class="form-control" />
-                        </div>
-                        <button type="submit" class="btn btn-light">Change</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">Change password</button>
-    <!--Modal-->
-    <form asp-controller="Profile" asp-action="ChangePassword" method="post">
-        <div class="modal" id="myModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
 
-                    <div class="modal-header">
-                        <h4 class="modal-title">New Post</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>Title</label>
-                            <input asp-for="Password" class="form-control" value=""/>
-                        </div>
-                        <button type="submit" class="btn btn-light">Change</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
 </div>
 
