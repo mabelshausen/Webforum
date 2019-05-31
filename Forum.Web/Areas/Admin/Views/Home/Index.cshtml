@@ -24,9 +24,9 @@
 
 <form asp-controller="Home" asp-action="CreateCategory" method="post">
     <div>
-        <label asp-for="Themes"></label>
+        <label asp-for="CategoryTheme"></label>
         <br />
-        <select asp-for="Themes">
+        <select asp-for="CategoryTheme">
             @foreach (var theme in Model.Themes)
             {
             <option>@theme.Title</option>

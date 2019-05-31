@@ -10,7 +10,6 @@ namespace Forum.Web.Areas.Admin.Models
 {
     public class ThemeViewModel
     {
-        [Display(Name = "Select the theme of the category you want to add. ")]
         public IEnumerable<Theme> Themes { get; set; }
 
         [Display(Name = "Enter the title of the theme you want to add. ")]
@@ -21,5 +20,9 @@ namespace Forum.Web.Areas.Admin.Models
 
         [Display(Name = "Enter the category you want to add. ")]
         public string Category { get; set; }
+
+        [Display(Name = "Select the theme of the category you want to add. ")]
+        public string CategoryTheme { get; set; }
+
     }
 }
