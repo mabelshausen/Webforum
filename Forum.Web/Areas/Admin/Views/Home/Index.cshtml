@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Themes</h2>
+<h2>Add a theme</h2>
 
 <form asp-controller="Home" asp-action="CreateTheme" method="post">
     <div>
@@ -19,6 +19,33 @@
     <input type="submit" value="Create theme" />
 </form>
 <br />
+
+<h2>Add a category</h2>
+
+<form asp-controller="Home" asp-action="CreateCategory" method="post">
+    <div>
+        <label asp-for="Themes"></label>
+        <br />
+        <select asp-for="Themes">
+            @foreach (var theme in Model.Themes)
+            {
+            <option>@theme.Title</option>
+            }
+        </select>
+        <br />
+        <label asp-for="Category"></label>
+        <br />
+        <input asp-for="Category" />
+        <br />
+        <label asp-for="Description"></label>
+        <br />
+        <textarea asp-for="Description"></textarea>
+    </div>
+    <input type="submit" value="Create category" />
+</form>
+<br />
+
+<h2>Existing themes</h2>
 
 <ul class="list-group">
     @foreach (var theme in Model.Themes)
