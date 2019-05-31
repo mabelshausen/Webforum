@@ -9,13 +9,16 @@
 <form asp-controller="Home" asp-action="CreateTheme" method="post">
     <div>
         <label asp-for="Theme"></label>
+        <br />
         <input asp-for="Theme" />
         <br />
         <label asp-for="Description"></label>
+        <br />
         <textarea asp-for="Description"></textarea>
     </div>
     <input type="submit" value="Create theme" />
 </form>
+<br />
 
 <ul class="list-group">
     @foreach (var theme in Model.Themes)
