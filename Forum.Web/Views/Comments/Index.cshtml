@@ -3,19 +3,27 @@
     ViewData["Title"] = "Index";
 }
 
+<nav>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="/@Model.Theme.Title">@Model.Theme.Title</a></li>
+        <li class="breadcrumb-item"><a href="/@Model.Theme.Title/@Model.Category.Title">@Model.Category.Title</a></li>
+    </ol>
+</nav>
+
 <div class="card mb-3">
     <div class="card-header">
         <h2>@Model.Post.Title</h2>
     </div>
     <div class="card-body flex-column">
         <span class="font-weight-bold">
-            @if (Model.Post.User.IsDeleted == true)
+            @if (Model.Post.User == null || Model.Post.User.IsDeleted)
             {
-                @Html.Raw("<b class = 'text-danger'>[Deleted]</b>");
+                <span>[deleted]</span>
             }
             else
             {
-                <a asp-controller="Profile" asp-action="Index" asp-route-id="@Model.Post.User?.Id">@(Model.Post.User?.Username ?? "[deleted]")</a>
+                <a asp-controller="Profile" asp-action="Index" asp-route-id="@Model.Post.User?.Id">@Model.Post.User?.Username</a>
             }
         </span>
         <div class="d-flex justify-content-between">
@@ -33,35 +41,36 @@
 <ul class="list-group">
     @foreach (var com in Model.Comments)
     {
-    <li class="list-group-item flex-column">
-        <span class="font-weight-bold">
-            @if (Model.Post.User.IsDeleted == true)
-            {
-                @Html.Raw("<b class = 'text-danger'>[Deleted]</b>");
-            }
-            else
-            {
-                <a asp-controller="Profile" asp-action="Index" asp-route-id="@com.User?.Id">@(com.User?.Username ?? "[deleted]")</a>
-            }
-            
-        </span>
-        <div class="d-flex justify-content-between">
-            @if (com.IsDeleted)
-            {
-                <span>[deleted]</span>
-            }
-            else
-            {
-                <span>@Html.Raw(com.Content.Replace(Environment.NewLine, "<br/>"))</span>
-            }
-            <span class="text-muted">@com.DateTime.ToString("HH:mm, dd MMMM yyyy")</span>
-        </div>
-        @if (Model.IsLoggedIn && com.User?.Id == Model.UserId && !com.IsDeleted)
-        {
-            <a asp-action="Edit" asp-route-id="@com.Id">Edit</a>
-            <a asp-action="Delete" asp-route-id="@com.Id">Delete</a>
-        }
-    </li>
+        <li class="list-group-item flex-column">
+            <span class="font-weight-bold">
+                @if (com.User == null || com.User.IsDeleted)
+                {
+                    <span>[deleted]</span>
+                }
+                else
+                {
+                    <a asp-controller="Profile" asp-action="Index" asp-route-id="@com.User?.Id">@com.User?.Username</a>
+                }
+            </span>
+            <div class="d-flex justify-content-between">
+                @if (com.IsDeleted)
+                {
+                    <span>[deleted]</span>
+                }
+                else
+                {
+                    <span>@Html.Raw(com.Content.Replace(Environment.NewLine, "<br/>"))</span>
+                }
+                <span class="col-3 text-right">
+                    <span class="text-muted">@com.DateTime.ToString("HH:mm, dd MMMM yyyy")</span><br />
+                    @if (Model.IsLoggedIn && com.User?.Id == Model.UserId && !com.IsDeleted)
+                    {
+                        <a asp-action="Edit" asp-route-id="@com.Id" class="btn btn-secondary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@com.Id" class="btn btn-secondary">Delete</a>
+                    }
+                </span>
+            </div>
+        </li>
     }
 </ul>
 

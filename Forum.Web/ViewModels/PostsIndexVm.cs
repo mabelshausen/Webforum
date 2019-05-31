@@ -21,5 +21,7 @@ namespace Forum.Web.ViewModels
         public bool IsLoggedIn { get; set; }
 
         public Guid UserId { get; set; }
+
+        public string SearchString { get; set; }
     }
 }

@@ -3,14 +3,20 @@
     ViewData["Title"] = "Index";
 }
 
+<nav>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="/@Model.Theme.Title">@Model.Theme.Title</a></li>
+        <li class="breadcrumb-item active">@Model.Category.Title</li>
+    </ol>
+</nav>
+
 <h2>@Model.Category.Title</h2>
 <p>@Model.Category.Description</p>
 
-
-
 @if (Model.IsLoggedIn == true)
 {
-    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">New Post</button>
+    <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#myModal">New Post</button>
     <!--Modal-->
     <form asp-controller="Posts" asp-action="CreatePost" method="post">
         <div class="modal" id="myModal">
@@ -29,7 +35,7 @@
                             <label asp-for="Content">Comment</label>
                             <textarea asp-for="Content" class="form-control"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-light">Post</button>
+                        <button type="submit" class="btn btn-secondary">Post</button>
                     </div>
                 </div>
             </div>
@@ -37,28 +43,35 @@
     </form>
 }
 
+<form asp-controller="Posts" asp-action="Search" method="post">
+    <div class="row mb-3">
+        <div class="col-5">
+            <input asp-for="SearchString" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-secondary col-1">Search</button>
+    </div>
+</form>
+
 <ul class="list-group">
     @foreach (var post in Model.PostsByCategory)
     {
-        <li>
-            
+        <li class="flex-column list-group-item list-group-item-action">
             <div class="d-flex justify-content-between">
-                <a href="/@Model.Theme.Title/@Model.Category.Title/@post.Id" class="list-group-item list-group-item-action flex-column ">
+                <a href="/@Model.Theme.Title/@Model.Category.Title/@post.Id" class="list-group-item-action">
                     <h5>@post.Title</h5>
-                    <span>@post.Content</span>
+                    <span>@Html.Raw(post.Content.Replace(Environment.NewLine, "<br/>"))</span>
                 </a>
-                <span class="text-muted col-3">
-
+                <span class="text-muted col-3 text-right">
                     Created by
-                    @if (post.User.IsDeleted == true)
+                    @if (post.User == null || post.User.IsDeleted)
                     {
-                        @Html.Raw("<b class = 'text-danger'>[Deleted]</b>");
+                        <span>[deleted]</span>
                     }
                     else
                     {
-                        <a asp-controller="Profile" asp-action="Index" asp-route-id="@post.User.Id">@post.User.Username</a>
+                        <a asp-controller="Profile" asp-action="Index" asp-route-id="@post.User?.Id">@post.User?.Username</a>
                     }
-                    on<br />
+                    <br />
                     @post.DateTime.ToString("HH:mm, dd MMMM yyyy")<br />
                     @if (Model.IsLoggedIn == true && post.User?.Id == Model.UserId)
                     {
