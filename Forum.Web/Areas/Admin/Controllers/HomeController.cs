@@ -75,7 +75,7 @@ namespace Forum.Web.Areas.Admin.Controllers
 
             ThemeToUpdate.Title = themeViewModel.NewThemeInput;
             ThemeToUpdate.Description = themeViewModel.Description;
-
+            TempData[TemporaryMessage.temporaryMessage] = $@"You have successfully updated the selected theme. ";
             _themeRepo.Update(ThemeToUpdate);
 
             return RedirectToAction("Index");
@@ -88,7 +88,7 @@ namespace Forum.Web.Areas.Admin.Controllers
             var ThemeToRemove = _themeRepo.GetById(Guid.Parse(themeViewModel.Theme));
 
             ThemeToRemove.IsDeleted = true;
-
+            TempData[TemporaryMessage.temporaryMessage] = $@"You have successfully removed the theme {ThemeToRemove.Title} from the website. ";
             _themeRepo.Delete(ThemeToRemove);
 
             return RedirectToAction("Index");
@@ -131,7 +131,7 @@ namespace Forum.Web.Areas.Admin.Controllers
 
             CategoryToUpdate.Title = themeViewModel.NewCategoryInput;
             CategoryToUpdate.Description = themeViewModel.Description;
-
+            TempData[TemporaryMessage.temporaryMessage] = $@"You have successfully updated the selected category. ";
             _categoryRepo.Update(CategoryToUpdate);
 
             return RedirectToAction("Index");
@@ -144,7 +144,7 @@ namespace Forum.Web.Areas.Admin.Controllers
             var CategoryToRemove = _categoryRepo.GetById(Guid.Parse(themeViewModel.Category));
 
             CategoryToRemove.IsDeleted = true;
-
+            TempData[TemporaryMessage.temporaryMessage] = $@"You have successfully removed the category {CategoryToRemove.Title} from the website. ";
             _categoryRepo.Delete(CategoryToRemove);
 
             return RedirectToAction("Index");
