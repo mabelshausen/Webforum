@@ -15,12 +15,11 @@ namespace Forum.Web.Controllers
 
     public class LoginController : Controller
     {
+        private readonly IRepository<User> _userRepo;
 
-        private readonly ForumContext _context;
-
-        public LoginController(ForumContext context)
+        public LoginController(IRepository<User> userRepo)
         {
-            _context = context;
+            _userRepo = userRepo;
         }
 
         public IActionResult Login()
@@ -36,9 +35,12 @@ namespace Forum.Web.Controllers
             {
                 var password = loginViewModel.Password;
                 var hashedPassword = PasswordHasher.Hashing(password);
-                var user = (from l in _context.Users where l.Username == loginViewModel.Username && l.Password == hashedPassword select l).FirstOrDefault();
+                var user = _userRepo.GetAll()
+                    .Where(u => u.Username == loginViewModel.Username)
+                    .Where(u => u.Password == hashedPassword)
+                    .FirstOrDefault();
 
-                if (user is null)
+                if (user is null || user.IsDeleted == true)
                 {
                     TempData[TemporaryMessage.temporaryMessage] = "An error occured while attempting to log in. Did you fill everything in correctly? ";
                     return View(loginViewModel);
@@ -76,7 +78,7 @@ namespace Forum.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
+        public IActionResult Register(RegisterViewModel registerViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -86,12 +88,13 @@ namespace Forum.Web.Controllers
                 user.Username = registerViewModel.Username;
                 user.Password = hashedPassword;
 
-                var UsernameAlreadyTaken = _context.Users.Where(u => u.Username == user.Username).FirstOrDefault();
+                var UsernameAlreadyTaken = _userRepo.GetAll()
+                    .Where(u => u.Username == user.Username)
+                    .FirstOrDefault();
 
                 if (UsernameAlreadyTaken is null)
                 {
-                    _context.Add(user);
-                    await _context.SaveChangesAsync();
+                    _userRepo.Add(user);
                     TempData[TemporaryMessage.temporaryMessage] = $@"You have successfully been registered as {registerViewModel.Username}. ";
                     return new RedirectToActionResult("Index", "Home", null);
                 }

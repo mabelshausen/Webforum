@@ -63,6 +63,10 @@
             </div>
 
             <ul class="navbar-nav">
+                @if (userstate.IsLoggedIn)
+                {
+                    <li class="nav-item"><a href="/Profile" class="nav-link">MyProfile</a></li>
+                }
                 @foreach (var theme in ThemeRepo.GetAll())
                 {
                     <li class="nav-item"><a href="/@theme.Title" class="nav-link">@theme.Title</a></li>
