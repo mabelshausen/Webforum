@@ -97,6 +97,20 @@ namespace Forum.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public IActionResult UpdateTheme(ThemeViewModel themeViewModel)
+        {
+            var ThemeToUpdate = _themeRepo.GetById(Guid.Parse(themeViewModel.Theme));
+
+            ThemeToUpdate.Title = themeViewModel.NewThemeInput;
+            ThemeToUpdate.Description = themeViewModel.Description;
+
+            _themeRepo.Update(ThemeToUpdate);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult RemoveTheme(ThemeViewModel themeViewModel)
         {
             var ThemeToRemove = _themeRepo.GetById(Guid.Parse(themeViewModel.Theme));

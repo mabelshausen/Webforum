@@ -27,6 +27,34 @@
 <br />
 
 <div class="AdminForm">
+    <h2>Update a theme</h2>
+
+    <form asp-controller="Home" asp-action="UpdateTheme" method="post">
+        <div>
+            <label>Selected theme: </label>
+            <br />
+            <select asp-for="Theme">
+                @foreach (var theme in Model.Themes)
+                {
+                    <option value="@theme.Id">@theme.Title</option>
+                }
+            </select>
+            <br />
+            <label asp-for="NewThemeInput"></label>
+            <br />
+            <input asp-for="NewThemeInput" />
+            <br />
+            <label>Enter the new description of the theme. </label>
+            <br />
+            <textarea asp-for="Description"></textarea>
+        </div>
+        <br />
+        <input type="submit" value="Update theme" class="btn btn-danger" />
+    </form>
+</div>
+<br />
+
+<div class="AdminForm">
     <h2>Remove a theme</h2>
 
     <form asp-controller="Home" asp-action="RemoveTheme" method="post">
