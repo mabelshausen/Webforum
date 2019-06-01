@@ -107,13 +107,13 @@
 
     <form asp-controller="Home" asp-action="UpdateCategory" method="post">
         <div>
-            <label asp-for="Category"></label>
+            <label>Selected category: </label>
             <br />
 
             <select asp-for="Category">
                 @foreach (var categories in Model.Categories)
                 {
-                    <option value="@categories.Id">@categories.Title</option>
+                <option value="@categories.Id">@categories.Theme.Title/@categories.Title</option>
                 }
             </select>
 
@@ -137,12 +137,12 @@
 
     <form asp-controller="Home" asp-action="RemoveCategory" method="post">
         <div>
-            <label asp-for="Category"></label>
+            <label>Selected category: </label>
             <br />
             <select asp-for="Category">
                 @foreach (var categories in Model.Categories)
                 {
-                    <option value="@categories.Id">@categories.Title</option>
+                    <option value="@categories.Id">@categories.Theme.Title/@categories.Title</option>
                 }
             </select>
         </div>
