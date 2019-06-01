@@ -9,9 +9,13 @@ using Forum.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Forum.Web.Areas.Admin.Models;
 using Forum.Web.Constants;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace Forum.Web.Areas.Admin.Controllers
 {
+    using Constants;
+
     [Area("Admin")]
     public class HomeController : Controller
     {
@@ -31,7 +35,15 @@ namespace Forum.Web.Areas.Admin.Controllers
             model.Themes = _themeRepo.GetAll();
             model.Categories = _categoryRepo.GetAll();
 
-            return View(model);
+            string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
+            var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
+
+            if (userState.IsAdmin)
+            {
+                return View(model);
+            }
+
+            return NotFound();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
