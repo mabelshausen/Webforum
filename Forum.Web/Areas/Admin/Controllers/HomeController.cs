@@ -101,7 +101,6 @@ namespace Forum.Web.Areas.Admin.Controllers
         {
             var ThemeToRemove = _themeRepo.GetById(Guid.Parse(themeViewModel.Theme));
 
-            ThemeToRemove.Title = themeViewModel.Theme;
             ThemeToRemove.IsDeleted = true;
 
             _themeRepo.Delete(ThemeToRemove);
