@@ -27,6 +27,26 @@
 <br />
 
 <div class="AdminForm">
+    <h2>Remove a theme</h2>
+
+    <form asp-controller="Home" asp-action="RemoveTheme" method="post">
+        <div>
+            <label>Selected theme: </label>
+            <br />
+            <select asp-for="Theme">
+                @foreach (var theme in Model.Themes)
+                {
+                    <option value="@theme.Id">@theme.Title</option>
+                }
+            </select>
+        </div>
+        <br />
+        <input type="submit" value="Remove theme" class="btn btn-danger" />
+    </form>
+</div>
+<br />
+
+<div class="AdminForm">
     <h2>Add a category</h2>
 
     <form asp-controller="Home" asp-action="CreateCategory" method="post">
@@ -49,11 +69,10 @@
             <textarea asp-for="Description"></textarea>
         </div>
         <br />
-        <input type="submit" value="Create category" class="btn btn-danger"/>
+        <input type="submit" value="Create category" class="btn btn-danger" />
     </form>
 </div>
 <br />
-
 
 <h2>Existing themes</h2>
 

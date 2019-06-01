@@ -94,5 +94,19 @@ namespace Forum.Web.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult RemoveTheme(ThemeViewModel themeViewModel)
+        {
+            var ThemeToRemove = _themeRepo.GetById(Guid.Parse(themeViewModel.Theme));
+
+            ThemeToRemove.Title = themeViewModel.Theme;
+            ThemeToRemove.IsDeleted = true;
+
+            _themeRepo.Delete(ThemeToRemove);
+
+            return RedirectToAction("Index");
+        }
     }
 }
