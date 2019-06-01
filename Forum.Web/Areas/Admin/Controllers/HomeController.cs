@@ -29,6 +29,7 @@ namespace Forum.Web.Areas.Admin.Controllers
             var model = new ThemeViewModel();
 
             model.Themes = _themeRepo.GetAll();
+            model.Categories = _categoryRepo.GetAll();
 
             return View(model);
         }
@@ -68,6 +69,33 @@ namespace Forum.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public IActionResult UpdateTheme(ThemeViewModel themeViewModel)
+        {
+            var ThemeToUpdate = _themeRepo.GetById(Guid.Parse(themeViewModel.Theme));
+
+            ThemeToUpdate.Title = themeViewModel.NewThemeInput;
+            ThemeToUpdate.Description = themeViewModel.Description;
+
+            _themeRepo.Update(ThemeToUpdate);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult RemoveTheme(ThemeViewModel themeViewModel)
+        {
+            var ThemeToRemove = _themeRepo.GetById(Guid.Parse(themeViewModel.Theme));
+
+            ThemeToRemove.IsDeleted = true;
+
+            _themeRepo.Delete(ThemeToRemove);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateCategory(ThemeViewModel themeViewModel)
         {
             if (ModelState.IsValid)
@@ -97,27 +125,14 @@ namespace Forum.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult UpdateTheme(ThemeViewModel themeViewModel)
+        public IActionResult UpdateCategory(ThemeViewModel themeViewModel)
         {
-            var ThemeToUpdate = _themeRepo.GetById(Guid.Parse(themeViewModel.Theme));
+            var CategoryToUpdate = _categoryRepo.GetById(Guid.Parse(themeViewModel.Category));
 
-            ThemeToUpdate.Title = themeViewModel.NewThemeInput;
-            ThemeToUpdate.Description = themeViewModel.Description;
+            CategoryToUpdate.Title = themeViewModel.NewCategoryInput;
+            CategoryToUpdate.Description = themeViewModel.Description;
 
-            _themeRepo.Update(ThemeToUpdate);
-
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult RemoveTheme(ThemeViewModel themeViewModel)
-        {
-            var ThemeToRemove = _themeRepo.GetById(Guid.Parse(themeViewModel.Theme));
-
-            ThemeToRemove.IsDeleted = true;
-
-            _themeRepo.Delete(ThemeToRemove);
+            _categoryRepo.Update(CategoryToUpdate);
 
             return RedirectToAction("Index");
         }

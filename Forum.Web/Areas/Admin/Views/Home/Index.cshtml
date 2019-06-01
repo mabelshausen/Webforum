@@ -102,15 +102,32 @@
 </div>
 <br />
 
-<h2>Existing themes</h2>
+<div class="AdminForm">
+    <h2>Edit a category</h2>
 
-<ul class="list-group">
-    @foreach (var theme in Model.Themes)
-    {
-        <li>
-            <a href="/@theme.Title" class="list-group-item list-group-item-action">
-                <h5>@theme.Title</h5>
-            </a>
-        </li>
-    }
-</ul>
+    <form asp-controller="Home" asp-action="UpdateCategory" method="post">
+        <div>
+            <label asp-for="Category"></label>
+            <br />
+
+            <select asp-for="Category">
+                @foreach (var categories in Model.Categories)
+                {
+                    <option value="@categories.Id">@categories.Title</option>
+                }
+            </select>
+
+            <br />
+            <label asp-for="NewCategoryInput"></label>
+            <br />
+            <input asp-for="NewCategoryInput" />
+            <br />
+            <label asp-for="Description"></label>
+            <br />
+            <textarea asp-for="Description"></textarea>
+        </div>
+        <br />
+        <input type="submit" value="Edit category" class="btn btn-danger" />
+    </form>
+</div>
+<br />

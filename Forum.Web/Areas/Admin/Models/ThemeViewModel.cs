@@ -12,6 +12,8 @@ namespace Forum.Web.Areas.Admin.Models
     {
         public IEnumerable<Theme> Themes { get; set; }
 
+        public IEnumerable<Category> Categories { get; set; }
+
         [Display(Name = "Enter the title of the theme you want to add. ")]
         public string Theme { get; set; }
 
@@ -26,5 +28,8 @@ namespace Forum.Web.Areas.Admin.Models
 
         [Display(Name = "Enter the new name of the theme. ")]
         public string NewThemeInput { get; set; }
+
+        [Display(Name = "Enter the new name of the category. ")]
+        public string NewCategoryInput { get; set; }
     }
 }
