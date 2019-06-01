@@ -87,7 +87,16 @@
                     }
                 </div>
                 <span class="text-muted col-3 text-right">
-                    Created by @(post.User?.Username ?? "[deleted]")<br />
+                    Created by
+                    @if (post.User == null || post.User.IsDeleted)
+                    {
+                        <span>[deleted]</span>
+                    }
+                    else
+                    {
+                        <a asp-controller="Profile" asp-action="Index" asp-route-id="@post.User?.Id">@post.User?.Username</a>
+                    }
+                    <br />
                     @post.DateTime.ToString("HH:mm, dd MMMM yyyy")<br />
                     @if (Model.IsLoggedIn == true && post.User?.Id == Model.UserId)
                     {
