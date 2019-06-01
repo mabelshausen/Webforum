@@ -62,7 +62,6 @@ namespace Forum.Web.Areas.Admin.Controllers
                     }
                 }
                 else { TempData[TemporaryMessage.temporaryMessage] = $@"{NewTheme.Title} already exists as a theme"; }
-                return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }
@@ -75,13 +74,23 @@ namespace Forum.Web.Areas.Admin.Controllers
             {
                 var NewCategory = new Category();
                 NewCategory.Title = themeViewModel.Category;
-
                 NewCategory.Theme = _themeRepo.GetById(Guid.Parse(themeViewModel.CategoryTheme));
-
                 NewCategory.Description = themeViewModel.Description;
 
-                _categoryRepo.Add(NewCategory);
-                
+                var CategoryAlreadyExists = _categoryRepo.GetAll().Where(c => c.Title == NewCategory.Title).FirstOrDefault();
+
+                if (NewCategory.Title == null)
+                {
+                    TempData[TemporaryMessage.temporaryMessage] = $"Something went wrong while attempting to create a new category, did you fill everything in correctly?";
+                    return RedirectToAction("Index");
+                }
+                if (CategoryAlreadyExists == null)
+                {
+                    _categoryRepo.Add(NewCategory);
+                    TempData[TemporaryMessage.temporaryMessage] = $@"You have successfully created {NewCategory.Title} as a new category. ";
+                }
+                else { TempData[TemporaryMessage.temporaryMessage] = $@"{NewCategory.Title} already exists as a category"; }
+
             }
             return RedirectToAction("Index");
         }
