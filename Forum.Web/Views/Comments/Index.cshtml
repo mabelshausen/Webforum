@@ -90,7 +90,7 @@
                 </div>
                 <span class="col-3 text-right">
                     <span class="text-muted">@com.DateTime.ToString("HH:mm, dd MMMM yyyy")</span><br />
-                    @if (Model.IsLoggedIn && com.User?.Id == Model.UserId && !com.IsDeleted)
+                    @if (Model.IsLoggedIn && !com.IsDeleted && (com.User?.Id == Model.UserId || Model.IsAdmin))
                     {
                         <a asp-action="Edit" asp-route-id="@com.Id" class="btn btn-secondary">Edit</a>
                         <a asp-action="Delete" asp-route-id="@com.Id" class="btn btn-secondary">Delete</a>
