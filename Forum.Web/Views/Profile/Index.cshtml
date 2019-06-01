@@ -13,38 +13,40 @@ else
 
     @if (Model.UserStateId == Model.UserId)
     {
-        <div class="d-flex justify-content-between">
-
-            <a asp-action="ChangeUsername" class="btn btn-secondary">Change username</a><br />
-            <a asp-action="ChangePassword" class="btn btn-secondary">Change password</a><br />
-            <a asp-action="DeleteProfile" class="btn btn-secondary">Delete profile</a>
-
+    <div class="col-md-12 my-3">
+        <div class="row">
+            <a asp-action="ChangeUsername" class="btn btn-secondary mr-3">Change username</a>
+            <a asp-action="ChangePassword" class="btn btn-secondary mx-3">Change password</a>
+            <a asp-action="DeleteProfile" class="btn btn-secondary ml-3">Delete profile</a>
         </div>
+    </div>
+        
     }
 
-    <div class="d-flex justify-content-between">
-        <a href="#posts" class="list-group-item list-group-item-action flex-column" data-toggle="collapse" aria-expanded="false">
-            <h3>Posts</h3>
-        </a>
-    </div>
+    <div class="mb-3">
+        <div class="d-flex justify-content-between">
+            <a href="#posts" class="list-group-item list-group-item-action flex-column" data-toggle="collapse" aria-expanded="false">
+                <h3>Posts</h3>
+            </a>
+        </div>
 
-    <ul class="list-group collapse" id="posts">
-        @foreach (var post in Model.UserPosts)
-        {
-            <li>
-                <div class="d-flex justify-content-between">
-                    <a href="/@post.Category.Theme.Title/@post.Category.Title/@post.Id" class="list-group-item list-group-item-action flex-column ">
-                        <h5>@post.Title</h5>
-                        <span>@post.Content</span>
-                    </a>
-                    <span class="text-muted col-3">
-                        Created by @post.User.Username<br />
-                        on @post.DateTime.ToString("HH:mm, dd MMMM yyyy")<br />
-                    </span>
-                </div>
-            </li>
-        }
-    </ul>
+        <ul class="list-group collapse" id="posts">
+            @foreach (var post in Model.UserPosts)
+            {
+                <li class="list-group-item list-group-item-action flex-column">
+                    <div class="d-flex justify-content-between">
+                        <a href="/@post.Category.Theme.Title/@post.Category.Title/@post.Id" class="list-group-item-action">
+                            <h5>@post.Title</h5>
+                            <span>@post.Content</span>
+                        </a>
+                        <span class="text-muted col-3 text-right">
+                            @post.DateTime.ToString("HH:mm, dd MMMM yyyy")<br />
+                        </span>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
 
     <div class="d-flex justify-content-between">
         <a href="#comments" class="list-group-item list-group-item-action flex-column" data-toggle="collapse" aria-expanded="false">
@@ -55,9 +57,9 @@ else
     <ul class="list-group collapse" id="comments">
         @foreach (var comment in Model.UserComments)
         {
-            <li>
+            <li class="list-group-item list-group-item-action flex-column">
                 <div class="d-flex justify-content-between">
-                    <a href="/@comment.Post.Category.Theme.Title/@comment.Post.Category.Title/@comment.Post.Id" class="list-group-item list-group-item-action flex-column ">
+                    <a href="/@comment.Post.Category.Theme.Title/@comment.Post.Category.Title/@comment.Post.Id" class="list-group-item-action">
 
                         @if (comment.IsDeleted)
                         {
@@ -68,8 +70,7 @@ else
                             <span>@Html.Raw(comment.Content.Replace(Environment.NewLine, "<br/>"))</span>
                         }
                     </a>
-                    <span class="text-muted col-3">
-                        Created on<br />
+                    <span class="text-muted col-3 text-right">
                         @comment.DateTime.ToString("HH:mm, dd MMMM yyyy")<br />
                     </span>
                 </div>
