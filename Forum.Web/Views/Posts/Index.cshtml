@@ -98,7 +98,7 @@
                     }
                     <br />
                     @post.DateTime.ToString("HH:mm, dd MMMM yyyy")<br />
-                    @if (Model.IsLoggedIn == true && post.User?.Id == Model.UserId)
+                    @if (Model.IsLoggedIn && (post.User?.Id == Model.UserId || Model.IsAdmin))
                     {
                         <a asp-action="Edit" asp-route-id="@post.Id" class="btn btn-secondary">Edit</a>
                         <a asp-action="Delete" asp-route-id="@post.Id" class="btn btn-secondary">Delete</a>

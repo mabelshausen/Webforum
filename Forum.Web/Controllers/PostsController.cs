@@ -68,6 +68,7 @@ namespace Forum.Web.Controllers
             string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
             var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
             model.IsLoggedIn = userState.IsLoggedIn;
+            model.IsAdmin = userState.IsAdmin;
             model.UserId = userState.UserId;
 
             TCPState tcp = new TCPState
