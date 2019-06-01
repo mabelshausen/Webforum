@@ -85,8 +85,8 @@ namespace Forum.Web.Areas.Admin.Controllers
         {
             var ThemeToUpdate = _themeRepo.GetById(Guid.Parse(themeViewModel.Theme));
 
-            ThemeToUpdate.Title = themeViewModel.NewThemeInput;
-            ThemeToUpdate.Description = themeViewModel.Description;
+            ThemeToUpdate.Title = themeViewModel.NewThemeInput ?? ThemeToUpdate.Title;
+            ThemeToUpdate.Description = themeViewModel.Description ?? ThemeToUpdate.Description;
             TempData[TemporaryMessage.temporaryMessage] = $@"You have successfully updated the selected theme. ";
             _themeRepo.Update(ThemeToUpdate);
 
@@ -141,8 +141,8 @@ namespace Forum.Web.Areas.Admin.Controllers
         {
             var CategoryToUpdate = _categoryRepo.GetById(Guid.Parse(themeViewModel.Category));
 
-            CategoryToUpdate.Title = themeViewModel.NewCategoryInput;
-            CategoryToUpdate.Description = themeViewModel.Description;
+            CategoryToUpdate.Title = themeViewModel.NewCategoryInput ?? CategoryToUpdate.Title;
+            CategoryToUpdate.Description = themeViewModel.Description ?? CategoryToUpdate.Description;
             TempData[TemporaryMessage.temporaryMessage] = $@"You have successfully updated the selected category. ";
             _categoryRepo.Update(CategoryToUpdate);
 
