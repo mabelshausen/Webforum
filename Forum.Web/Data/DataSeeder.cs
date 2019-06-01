@@ -14,13 +14,15 @@ namespace Forum.Web.Data
         {
             modelBuilder.Entity<User>().HasData(
                 new User { Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
-                    Username = "TmpUser1", Password = "password" },
+                    Username = "TmpUser1", Password = PasswordHasher.Hashing("password") },
                 new User { Id = Guid.Parse("22222222-2222-2222-2222-222222222222"),
-                    Username = "TmpUser2", Password = "password" },
+                    Username = "TmpUser2", Password = PasswordHasher.Hashing("password") },
                 new User { Id = Guid.Parse("33333333-3333-3333-3333-333333333333"),
-                    Username = "TmpUser3", Password = "password" },
+                    Username = "TmpUser3", Password = PasswordHasher.Hashing("password") },
                 new User { Id = Guid.Parse("44444444-4444-4444-4444-444444444444"),
-                    Username = "TmpUser4", Password = "password" });
+                    Username = "TmpUser4", Password = PasswordHasher.Hashing("password") },
+                new User { Id = Guid.Parse("55555555-5555-5555-5555-555555555555"),
+                    Username = "Admin", Password = PasswordHasher.Hashing("password"), IsAdmin = true});
 
             modelBuilder.Entity<Theme>().HasData(
                 new Theme { Id = Guid.Parse("11111111-1111-1111-1111-111111111111"), Title = "Movies",

@@ -51,7 +51,7 @@ namespace Forum.Web.Controllers
                         UserId = user.Id,
                         Username = user.Username,
                         IsLoggedIn = true,
-                        IsAdmin = false
+                        IsAdmin = user.IsAdmin
                     };
                     HttpContext.Session.SetString(Constants.UserStatekey, JsonConvert.SerializeObject(userState));
                     return new RedirectToActionResult("Index", "Home", null);

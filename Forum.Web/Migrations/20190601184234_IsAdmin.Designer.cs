@@ -4,14 +4,16 @@ using Forum.Web;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Forum.Web.Migrations
 {
     [DbContext(typeof(ForumContext))]
-    partial class ForumContextModelSnapshot : ModelSnapshot
+    [Migration("20190601184234_IsAdmin")]
+    partial class IsAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -285,14 +287,6 @@ namespace Forum.Web.Migrations
                             IsDeleted = false,
                             Password = "X03MO1qnZdYdgyfeuILPmQ==",
                             Username = "TmpUser4"
-                        },
-                        new
-                        {
-                            Id = new Guid("55555555-5555-5555-5555-555555555555"),
-                            IsAdmin = true,
-                            IsDeleted = false,
-                            Password = "X03MO1qnZdYdgyfeuILPmQ==",
-                            Username = "Admin"
                         });
                 });
 
