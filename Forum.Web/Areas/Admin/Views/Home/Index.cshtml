@@ -3,47 +3,57 @@
     ViewData["Title"] = "Admin Home";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<head>
+    <link href="~/css/admin.css" rel="stylesheet" />
+</head>
 
-<h2>Add a theme</h2>
+<div class="AdminForm">
+    <h2>Add a theme</h2>
 
-<form asp-controller="Home" asp-action="CreateTheme" method="post">
-    <div>
-        <label asp-for="Theme"></label>
+    <form asp-controller="Home" asp-action="CreateTheme" method="post">
+        <div>
+            <label asp-for="Theme"></label>
+            <br />
+            <input asp-for="Theme" />
+            <br />
+            <label asp-for="Description"></label>
+            <br />
+            <textarea asp-for="Description"></textarea>
+        </div>
         <br />
-        <input asp-for="Theme" />
-        <br />
-        <label asp-for="Description"></label>
-        <br />
-        <textarea asp-for="Description"></textarea>
-    </div>
-    <input type="submit" value="Create theme" />
-</form>
+        <input type="submit" value="Create theme" class="btn btn-danger" />
+    </form>
+</div>
 <br />
 
-<h2>Add a category</h2>
+<div class="AdminForm">
+    <h2>Add a category</h2>
 
-<form asp-controller="Home" asp-action="CreateCategory" method="post">
-    <div>
-        <label asp-for="CategoryTheme"></label>
+    <form asp-controller="Home" asp-action="CreateCategory" method="post">
+        <div>
+            <label asp-for="CategoryTheme"></label>
+            <br />
+            <select asp-for="CategoryTheme">
+                @foreach (var theme in Model.Themes)
+                {
+                    <option value="@theme.Id">@theme.Title</option>
+                }
+            </select>
+            <br />
+            <label asp-for="Category"></label>
+            <br />
+            <input asp-for="Category" />
+            <br />
+            <label asp-for="Description"></label>
+            <br />
+            <textarea asp-for="Description"></textarea>
+        </div>
         <br />
-        <select asp-for="CategoryTheme">
-            @foreach (var theme in Model.Themes)
-            {
-            <option value="@theme.Id">@theme.Title</option>
-            }
-        </select>
-        <br />
-        <label asp-for="Category"></label>
-        <br />
-        <input asp-for="Category" />
-        <br />
-        <label asp-for="Description"></label>
-        <br />
-        <textarea asp-for="Description"></textarea>
-    </div>
-    <input type="submit" value="Create category" />
-</form>
+        <input type="submit" value="Create category" class="btn btn-danger"/>
+    </form>
+</div>
 <br />
+
 
 <h2>Existing themes</h2>
 
