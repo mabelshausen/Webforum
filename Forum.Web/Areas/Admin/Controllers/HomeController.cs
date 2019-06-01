@@ -136,5 +136,18 @@ namespace Forum.Web.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult RemoveCategory(ThemeViewModel themeViewModel)
+        {
+            var CategoryToRemove = _categoryRepo.GetById(Guid.Parse(themeViewModel.Category));
+
+            CategoryToRemove.IsDeleted = true;
+
+            _categoryRepo.Delete(CategoryToRemove);
+
+            return RedirectToAction("Index");
+        }
     }
 }
