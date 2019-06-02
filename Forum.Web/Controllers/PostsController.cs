@@ -60,6 +60,7 @@ namespace Forum.Web.Controllers
                     .Where(p => p.Category == model.Category)
                     .Where(p => p.Title.ToLower().Contains(search.ToLower()))
                     .Include(p => p.User)
+                    .Include(p => p.LikedPosts)
                     .OrderByDescending(p => p.DateTime)
                     .ToList();
             }
