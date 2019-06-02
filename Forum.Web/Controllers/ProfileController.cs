@@ -45,6 +45,7 @@ namespace Forum.Web.Controllers
             }
 
             model.UserId = Guid.Parse(id);
+            model.VisitorId = userState.UserId;
             model.IsAdmin = userState.IsAdmin;
 
             var User = _userRepo.GetAll()

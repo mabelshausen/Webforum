@@ -11,6 +11,8 @@ namespace Forum.Web.ViewModels
     {
         public Guid UserId { get; set; }
 
+        public Guid VisitorId { get; set; }
+
         public string Username { get; set; }
 
         public IEnumerable<Post> UserPosts { get; set; }
