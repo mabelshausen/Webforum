@@ -11,6 +11,8 @@ namespace Forum.Web.ViewModels
     {
         public Guid UserId { get; set; }
 
+        public Guid VisitorId { get; set; }
+
         public string Username { get; set; }
 
         public IEnumerable<Post> UserPosts { get; set; }
@@ -20,5 +22,7 @@ namespace Forum.Web.ViewModels
         public Guid UserStateId { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public bool  IsAdmin { get; set; }
     }
 }

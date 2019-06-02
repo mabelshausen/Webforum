@@ -6,7 +6,7 @@
 <nav>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="/@Model.Theme.Title">@Model.Theme.Title</a></li>
+        <li class="breadcrumb-item"><a asp-controller="Categories" asp-action="Index" asp-route-theme="@Model.Theme.Title">@Model.Theme.Title</a></li>
         <li class="breadcrumb-item active">@Model.Category.Title</li>
     </ol>
 </nav>
@@ -57,7 +57,7 @@
     {
         <li class="flex-column list-group-item list-group-item-action">
             <div class="d-flex justify-content-between">
-                <a href="/@Model.Theme.Title/@Model.Category.Title/@post.Id" class="list-group-item-action">
+                <a asp-controller="Comments" asp-action="Index" asp-route-theme="@Model.Theme.Title" asp-route-category="@Model.Category.Title" asp-route-postid="@post.Id" class="list-group-item-action">
                     <h5>@post.Title</h5>
                     <span>@Html.Raw(post.Content.Replace(Environment.NewLine, "<br/>"))</span>
                 </a>

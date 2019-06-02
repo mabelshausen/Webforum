@@ -30,7 +30,7 @@ namespace Forum.Web.Controllers
             _commentRepo = commentRepo;
         }
 
-        public IActionResult Index(Guid Id)
+        public IActionResult Index(string id)
         {
             var model = new ProfileIndexVm();
 
@@ -39,12 +39,18 @@ namespace Forum.Web.Controllers
             model.UserStateId = userState.UserId;
             model.IsDeleted = false;
 
-            if (Id == Guid.Empty)
-            {
-                Id = userState.UserId;
-            }
+            model.VisitorId = userState.UserId;
 
-            model.UserId = Id;
+            if (id == null)
+            {
+                model.UserId = model.VisitorId;
+            }
+            else
+            {
+                model.UserId = Guid.Parse(id);
+            }
+            
+            model.IsAdmin = userState.IsAdmin;
 
             var User = _userRepo.GetAll()
                 .Where(u => u.Id == model.UserId)
@@ -165,12 +171,12 @@ namespace Forum.Web.Controllers
             }
         }
 
-        public IActionResult DeleteProfile(ProfileIndexVm model)
+        public IActionResult DeleteProfile(string id)
         {
             string sessionUserState = HttpContext.Session.GetString(Constants.UserStatekey);
             var userState = JsonConvert.DeserializeObject<UserState>(sessionUserState);
 
-            var user = _userRepo.GetById(userState.UserId);
+            var user = _userRepo.GetById(Guid.Parse(id));
             _userRepo.Delete(user);
 
             userState = new UserState { UserId = Guid.Empty, Username = null, IsLoggedIn = false, IsAdmin = false };

@@ -36,6 +36,7 @@ namespace Forum.Web.Controllers
 
             model.CategoriesBytheme = _categoryRepo.GetAll()
                 .Where(c => c.Theme == model.Theme)
+                .OrderBy(c => c.Title)
                 .ToList();
 
             TCPState tcp = new TCPState

@@ -11,16 +11,18 @@ else
 {
     <h3>@Model.Username</h3>
 
-    @if (Model.UserStateId == Model.UserId)
+    @if (Model.UserStateId == Model.UserId || Model.IsAdmin)
     {
-    <div class="col-md-12 my-3">
-        <div class="row">
-            <a asp-action="ChangeUsername" class="btn btn-secondary mr-3">Change username</a>
-            <a asp-action="ChangePassword" class="btn btn-secondary mx-3">Change password</a>
-            <a asp-action="DeleteProfile" class="btn btn-secondary ml-3">Delete profile</a>
+        <div class="col-md-12 my-3">
+            <div class="row">
+                @if (Model.UserId == Model.VisitorId)
+                {
+                    <a asp-action="ChangeUsername" class="btn btn-secondary mr-3">Change username</a>
+                    <a asp-action="ChangePassword" class="btn btn-secondary mx-3">Change password</a>
+                }
+                <a asp-action="DeleteProfile" asp-route-id="@Model.UserId" class="btn btn-secondary ml-3">Delete profile</a>
+            </div>
         </div>
-    </div>
-        
     }
 
     <div class="mb-3">
@@ -35,7 +37,7 @@ else
             {
                 <li class="list-group-item list-group-item-action flex-column">
                     <div class="d-flex justify-content-between">
-                        <a href="/@post.Category.Theme.Title/@post.Category.Title/@post.Id" class="list-group-item-action">
+                        <a asp-controller="Comments" asp-action="Index" asp-route-theme="@post.Category.Theme.Title" asp-route-category="@post.Category.Title" asp-route-postid="@post.Id" class="list-group-item-action">
                             <h5>@post.Title</h5>
                             <span>@post.Content</span>
                         </a>
@@ -59,7 +61,7 @@ else
         {
             <li class="list-group-item list-group-item-action flex-column">
                 <div class="d-flex justify-content-between">
-                    <a href="/@comment.Post.Category.Theme.Title/@comment.Post.Category.Title/@comment.Post.Id" class="list-group-item-action">
+                    <a asp-controller="Comments" asp-action="Index" asp-route-theme="@comment.Post.Category.Theme.Title" asp-route-category="@comment.Post.Category.Title" asp-route-postid="@comment.Post.Id" class="list-group-item-action">
 
                         @if (comment.IsDeleted)
                         {

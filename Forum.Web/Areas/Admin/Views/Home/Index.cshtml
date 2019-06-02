@@ -3,151 +3,141 @@
     ViewData["Title"] = "Admin Home";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-<head>
-    <link href="~/css/admin.css" rel="stylesheet" />
-</head>
+<div class="row">
+    <div class="mb-3 mx-3 col-5">
+        <div class="card">
+            <h2 class="card-header">Add a theme</h2>
 
-<div class="AdminForm">
-    <h2>Add a theme</h2>
-
-    <form asp-controller="Home" asp-action="CreateTheme" method="post">
-        <div>
-            <label asp-for="Theme"></label>
-            <br />
-            <input asp-for="Theme" />
-            <br />
-            <label asp-for="Description"></label>
-            <br />
-            <textarea asp-for="Description"></textarea>
+            <form asp-controller="Home" asp-action="CreateTheme" method="post" class="card-body">
+                <div class="form-group">
+                    <label asp-for="Theme"></label>
+                    <input asp-for="Theme" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                </div>
+                <input type="submit" value="Create theme" class="btn btn-danger" />
+            </form>
         </div>
-        <br />
-        <input type="submit" value="Create theme" class="btn btn-danger" />
-    </form>
-</div>
-<br />
+    </div>
 
-<div class="AdminForm">
-    <h2>Update a theme</h2>
+    <div class="mb-3 mx-3 col-5">
+        <div class="card">
+            <h2 class="card-header">Add a category</h2>
 
-    <form asp-controller="Home" asp-action="UpdateTheme" method="post">
-        <div>
-            <label>Selected theme: </label>
-            <br />
-            <select asp-for="Theme">
-                @foreach (var theme in Model.Themes)
-                {
-                    <option value="@theme.Id">@theme.Title</option>
-                }
-            </select>
-            <br />
-            <label asp-for="NewThemeInput"></label>
-            <br />
-            <input asp-for="NewThemeInput" />
-            <br />
-            <label>Enter the new description of the theme. </label>
-            <br />
-            <textarea asp-for="Description"></textarea>
+            <form asp-controller="Home" asp-action="CreateCategory" method="post" class="card-body">
+                <div class="form-group">
+                    <label asp-for="CategoryTheme"></label>
+                    <select asp-for="CategoryTheme" class="form-control">
+                        @foreach (var theme in Model.Themes)
+                        {
+                            <option value="@theme.Id">@theme.Title</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Category"></label>
+                    <input asp-for="Category" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                </div>
+                <input type="submit" value="Create category" class="btn btn-danger" />
+            </form>
         </div>
-        <br />
-        <input type="submit" value="Update theme" class="btn btn-danger" />
-    </form>
-</div>
-<br />
+    </div>
 
-<div class="AdminForm">
-    <h2>Remove a theme</h2>
+    <div class="mb-3 mx-3 col-5">
+        <div class="card">
+            <h2 class="card-header">Edit a theme</h2>
 
-    <form asp-controller="Home" asp-action="RemoveTheme" method="post">
-        <div>
-            <label>Selected theme: </label>
-            <br />
-            <select asp-for="Theme">
-                @foreach (var theme in Model.Themes)
-                {
-                    <option value="@theme.Id">@theme.Title</option>
-                }
-            </select>
+            <form asp-controller="Home" asp-action="UpdateTheme" method="post" class="card-body">
+                <div class="form-group">
+                    <label>Selected theme: </label>
+                    <select asp-for="Theme" class="form-control">
+                        @foreach (var theme in Model.Themes)
+                        {
+                            <option value="@theme.Id">@theme.Title</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NewThemeInput"></label>
+                    <input asp-for="NewThemeInput" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Enter the new description of the theme. </label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                </div>
+                <input type="submit" value="Update theme" class="btn btn-danger" />
+            </form>
         </div>
-        <br />
-        <input type="submit" value="Remove theme" class="btn btn-danger" />
-    </form>
-</div>
-<br />
+    </div>
 
-<div class="AdminForm">
-    <h2>Add a category</h2>
+    <div class="mb-3 mx-3 col-5">
+        <div class="card">
+            <h2 class="card-header">Edit a category</h2>
 
-    <form asp-controller="Home" asp-action="CreateCategory" method="post">
-        <div>
-            <label asp-for="CategoryTheme"></label>
-            <br />
-            <select asp-for="CategoryTheme">
-                @foreach (var theme in Model.Themes)
-                {
-                    <option value="@theme.Id">@theme.Title</option>
-                }
-            </select>
-            <br />
-            <label asp-for="Category"></label>
-            <br />
-            <input asp-for="Category" />
-            <br />
-            <label asp-for="Description"></label>
-            <br />
-            <textarea asp-for="Description"></textarea>
+            <form asp-controller="Home" asp-action="UpdateCategory" method="post" class="card-body">
+                <div class="form-group">
+                    <label>Selected category: </label>
+                    <select asp-for="Category" class="form-control">
+                        @foreach (var categories in Model.Categories)
+                        {
+                            <option value="@categories.Id">@categories.Theme.Title/@categories.Title</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NewCategoryInput"></label>
+                    <input asp-for="NewCategoryInput" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                </div>
+                <input type="submit" value="Edit category" class="btn btn-danger" />
+            </form>
         </div>
-        <br />
-        <input type="submit" value="Create category" class="btn btn-danger" />
-    </form>
-</div>
-<br />
+    </div>
 
-<div class="AdminForm">
-    <h2>Edit a category</h2>
+    <div class="mb-3 mx-3 col-5">
+        <div class="card">
+            <h2 class="card-header">Remove a theme</h2>
 
-    <form asp-controller="Home" asp-action="UpdateCategory" method="post">
-        <div>
-            <label>Selected category: </label>
-            <br />
-
-            <select asp-for="Category">
-                @foreach (var categories in Model.Categories)
-                {
-                <option value="@categories.Id">@categories.Theme.Title/@categories.Title</option>
-                }
-            </select>
-
-            <br />
-            <label asp-for="NewCategoryInput"></label>
-            <br />
-            <input asp-for="NewCategoryInput" />
-            <br />
-            <label asp-for="Description"></label>
-            <br />
-            <textarea asp-for="Description"></textarea>
+            <form asp-controller="Home" asp-action="RemoveTheme" method="post" class="card-body">
+                <div class="form-group">
+                    <label>Selected theme: </label>
+                    <select asp-for="Theme" class="form-control">
+                        @foreach (var theme in Model.Themes)
+                        {
+                            <option value="@theme.Id">@theme.Title</option>
+                        }
+                    </select>
+                </div>
+                <input type="submit" value="Remove theme" class="btn btn-danger" />
+            </form>
         </div>
-        <br />
-        <input type="submit" value="Edit category" class="btn btn-danger" />
-    </form>
-</div>
-<br />
+    </div>
 
-<div class="AdminForm">
-    <h2>Remove a category</h2>
+    <div class="mb-3 mx-3 col-5">
+        <div class="card">
+            <h2 class="card-header">Remove a category</h2>
 
-    <form asp-controller="Home" asp-action="RemoveCategory" method="post">
-        <div>
-            <label>Selected category: </label>
-            <br />
-            <select asp-for="Category">
-                @foreach (var categories in Model.Categories)
-                {
-                    <option value="@categories.Id">@categories.Theme.Title/@categories.Title</option>
-                }
-            </select>
+            <form asp-controller="Home" asp-action="RemoveCategory" method="post" class="card-body">
+                <div class="form-group">
+                    <label>Selected category: </label>
+                    <select asp-for="Category" class="form-control">
+                        @foreach (var categories in Model.Categories)
+                        {
+                            <option value="@categories.Id">@categories.Theme.Title/@categories.Title</option>
+                        }
+                    </select>
+                </div>
+                <input type="submit" value="Remove category" class="btn btn-danger" />
+            </form>
         </div>
-        <br />
-        <input type="submit" value="Remove category" class="btn btn-danger" />
-    </form>
+    </div>
 </div>
-<br />
