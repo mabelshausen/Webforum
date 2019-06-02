@@ -45,6 +45,7 @@ namespace Forum.Web.Controllers
             }
 
             model.UserId = Id;
+            model.IsAdmin = userState.IsAdmin;
 
             var User = _userRepo.GetAll()
                 .Where(u => u.Id == model.UserId)

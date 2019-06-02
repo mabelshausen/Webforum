@@ -20,5 +20,7 @@ namespace Forum.Web.ViewModels
         public Guid UserStateId { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public bool  IsAdmin { get; set; }
     }
 }

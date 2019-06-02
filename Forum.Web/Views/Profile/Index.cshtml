@@ -11,7 +11,7 @@ else
 {
     <h3>@Model.Username</h3>
 
-    @if (Model.UserStateId == Model.UserId)
+    @if (Model.UserStateId == Model.UserId || Model.IsAdmin)
     {
     <div class="col-md-12 my-3">
         <div class="row">
