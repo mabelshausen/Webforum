@@ -65,7 +65,7 @@
             <ul class="navbar-nav">
                 @if (userstate.IsLoggedIn)
                 {
-                    <li class="nav-item"><a asp-controller="Profile" asp-action="Index" class="nav-link">My Profile</a></li>
+                    <li class="nav-item"><a asp-controller="Profile" asp-action="Index" asp-route-id="@userstate.UserId" class="nav-link">My Profile</a></li>
                 }
                 @foreach (var theme in ThemeRepo.GetAll().OrderBy(t => t.Title))
                 {

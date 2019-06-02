@@ -39,13 +39,17 @@ namespace Forum.Web.Controllers
             model.UserStateId = userState.UserId;
             model.IsDeleted = false;
 
+            model.VisitorId = userState.UserId;
+
             if (id == null)
             {
-                id = userState.UserId.ToString();
+                model.UserId = model.VisitorId;
             }
-
-            model.UserId = Guid.Parse(id);
-            model.VisitorId = userState.UserId;
+            else
+            {
+                model.UserId = Guid.Parse(id);
+            }
+            
             model.IsAdmin = userState.IsAdmin;
 
             var User = _userRepo.GetAll()
