@@ -17,7 +17,7 @@ else
             <div class="row">
                 <a asp-action="ChangeUsername" class="btn btn-secondary mr-3">Change username</a>
                 <a asp-action="ChangePassword" class="btn btn-secondary mx-3">Change password</a>
-                <a asp-action="DeleteProfile" class="btn btn-secondary ml-3">Delete profile</a>
+                <a asp-action="DeleteProfile" asp-route-id="@Model.UserId" class="btn btn-secondary ml-3">Delete profile</a>
             </div>
         </div>
 
