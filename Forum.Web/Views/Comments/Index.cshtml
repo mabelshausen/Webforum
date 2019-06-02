@@ -6,8 +6,8 @@
 <nav>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="/@Model.Theme.Title">@Model.Theme.Title</a></li>
-        <li class="breadcrumb-item"><a href="/@Model.Theme.Title/@Model.Category.Title">@Model.Category.Title</a></li>
+        <li class="breadcrumb-item"><a asp-controller="Categories" asp-action="Index" asp-route-theme="@Model.Theme.Title">@Model.Theme.Title</a></li>
+        <li class="breadcrumb-item"><a asp-controller="Posts" asp-action="Index" asp-route-theme="@Model.Theme.Title" asp-route-category="@Model.Category.Title">@Model.Category.Title</a></li>
     </ol>
 </nav>
 
