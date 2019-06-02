@@ -23,7 +23,7 @@ namespace Forum.Web.Controllers
         {
             var model = new HomeIndexVm();
 
-            model.Themes = _themeRepo.GetAll();
+            model.Themes = _themeRepo.GetAll().OrderBy(t => t.Title);
 
             return View(model);
         }

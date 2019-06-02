@@ -67,7 +67,7 @@
                 {
                     <li class="nav-item"><a href="/Profile" class="nav-link">My Profile</a></li>
                 }
-                @foreach (var theme in ThemeRepo.GetAll())
+                @foreach (var theme in ThemeRepo.GetAll().OrderBy(t => t.Title))
                 {
                     <li class="nav-item"><a href="/@theme.Title" class="nav-link">@theme.Title</a></li>
                 }
